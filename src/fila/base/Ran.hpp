@@ -13,37 +13,35 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Joined.hpp
+///   File: Ran.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 9/27/2016
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_BASE_JOINED_HPP
-#define _FILA_BASE_JOINED_HPP
+#ifndef _FILA_BASE_RAN_HPP
+#define _FILA_BASE_RAN_HPP
 
 #include "fila/base/Base.hpp"
-#include "patrona/cpp/xos/base/Joined.hpp"
 
 namespace fila {
 
-typedef ::patrona::JoinStatus JoinStatus;
-static const JoinStatus JoinSuccess = ::patrona::JoinSuccess;
-static const JoinStatus JoinFailed = ::patrona::JoinFailed;
-static const JoinStatus JoinBusy = ::patrona::JoinBusy;
-static const JoinStatus JoinInterrupted = ::patrona::JoinInterrupted;
-static const JoinStatus JoinInvalid = ::patrona::JoinInvalid;
-static const JoinStatus ForkSuccess = ::patrona::ForkSuccess;
-static const JoinStatus ForkFailed = ::patrona::ForkFailed;
-static const JoinStatus ForkBusy = ::patrona::ForkBusy;
-static const JoinStatus ForkInterrupted = ::patrona::ForkInterrupted;
-static const JoinStatus ForkInvalid = ::patrona::ForkInvalid;
-
-typedef ::patrona::JoinException JoinException;
-
-typedef ::patrona::Joined Joined;
-typedef ::patrona::Joiner Joiner;
-typedef ::patrona::Forker Forker;
+typedef ImplementBase RanTImplements;
+///////////////////////////////////////////////////////////////////////
+///  Class: RanT
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = RanTImplements>
+class _EXPORT_CLASS RanT: virtual public TImplements {
+public:
+    typedef TImplements Implements;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual void Run() {
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef RanT<> Ran;
 
 } // namespace fila
 
-#endif // _FILA_BASE_JOINED_HPP
+#endif // _FILA_BASE_RAN_HPP

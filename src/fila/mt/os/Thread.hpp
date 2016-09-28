@@ -13,27 +13,36 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Created.hpp
+///   File: Thread.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 9/27/2016
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_BASE_CREATED_HPP
-#define _FILA_BASE_CREATED_HPP
+#ifndef _FILA_MT_OS_THREAD_HPP
+#define _FILA_MT_OS_THREAD_HPP
 
-#include "patrona/cpp/xos/base/Created.hpp"
+#include "fila/mt/os/Os.hpp"
+#include "fila/mt/Thread.hpp"
+
+#if defined(WINDOWS)
+// Windows
+#include "fila/mt/microsoft/windows/Thread.hpp"
+#elif defined(MACOSX)
+// MacOSX
+#include "fila/mt/apple/osx/Thread.hpp"
+#else // defined(WINDOWS)
+// Unix
+#include "fila/mt/posix/Thread.hpp"
+#endif // defined(WINDOWS)
 
 namespace fila {
+namespace mt {
+namespace os {
 
-typedef ::patrona::CreateStatus CreateStatus;
-static const CreateStatus CreateSuccess = ::patrona::CreateSuccess;
-static const CreateStatus CreateFailed = ::patrona::CreateFailed;
-static const CreateStatus DestroySuccess = ::patrona::DestroySuccess;
-static const CreateStatus DestroyFailed = ::patrona::DestroyFailed;
+typedef os::Thread Thread;
 
-typedef ::patrona::CreateException CreateException;
-typedef ::patrona::Creator Creator;
+} // namespace os 
+} // namespace mt 
+} // namespace fila 
 
-} // namespace fila
-
-#endif // _FILA_BASE_CREATED_HPP 
+#endif // _FILA_MT_OS_THREAD_HPP 

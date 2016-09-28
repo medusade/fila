@@ -13,27 +13,26 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Created.hpp
+///   File: Semaphore.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 9/26/2016
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_BASE_CREATED_HPP
-#define _FILA_BASE_CREATED_HPP
+#ifndef _FILA_MT_APPLE_OSX_SEMAPHORE_HPP
+#define _FILA_MT_APPLE_OSX_SEMAPHORE_HPP
 
-#include "patrona/cpp/xos/base/Created.hpp"
+#include "fila/mt/apple/mach/Semaphore.hpp"
 
 namespace fila {
+namespace mt {
+namespace apple {
+namespace osx {
 
-typedef ::patrona::CreateStatus CreateStatus;
-static const CreateStatus CreateSuccess = ::patrona::CreateSuccess;
-static const CreateStatus CreateFailed = ::patrona::CreateFailed;
-static const CreateStatus DestroySuccess = ::patrona::DestroySuccess;
-static const CreateStatus DestroyFailed = ::patrona::DestroyFailed;
+typedef mach::Semaphore Semaphore;
 
-typedef ::patrona::CreateException CreateException;
-typedef ::patrona::Creator Creator;
+} // namespace osx 
+} // namespace apple 
+} // namespace mt 
+} // namespace fila 
 
-} // namespace fila
-
-#endif // _FILA_BASE_CREATED_HPP 
+#endif // _FILA_MT_APPLE_OSX_SEMAPHORE_HPP 

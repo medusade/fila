@@ -13,27 +13,33 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Created.hpp
+///   File: Semaphore.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 9/26/2016
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_BASE_CREATED_HPP
-#define _FILA_BASE_CREATED_HPP
+#ifndef _FILA_MT_SEMAPHORE_HPP
+#define _FILA_MT_SEMAPHORE_HPP
 
-#include "patrona/cpp/xos/base/Created.hpp"
+#include "fila/base/Acquired.hpp"
 
 namespace fila {
+namespace mt {
 
-typedef ::patrona::CreateStatus CreateStatus;
-static const CreateStatus CreateSuccess = ::patrona::CreateSuccess;
-static const CreateStatus CreateFailed = ::patrona::CreateFailed;
-static const CreateStatus DestroySuccess = ::patrona::DestroySuccess;
-static const CreateStatus DestroyFailed = ::patrona::DestroyFailed;
+typedef Acquired SemaphoreTImplements;
+///////////////////////////////////////////////////////////////////////
+///  Class: SemaphoreT
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = SemaphoreTImplements>
+class _EXPORT_CLASS SemaphoreT: virtual public TImplements {
+public:
+    typedef TImplements Implements;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef SemaphoreT<> Semaphore;
 
-typedef ::patrona::CreateException CreateException;
-typedef ::patrona::Creator Creator;
+} // namespace mt
+} // namespace fila 
 
-} // namespace fila
-
-#endif // _FILA_BASE_CREATED_HPP 
+#endif // _FILA_MT_SEMAPHORE_HPP 
