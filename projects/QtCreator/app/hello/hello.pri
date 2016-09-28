@@ -27,11 +27,21 @@ $${fila_DEFINES} \
 
 ########################################################################
 hello_HEADERS += \
+$${FILA_SRC}/fila/mt/os/Thread.hpp \
+$${FILA_SRC}/fila/mt/apple/osx/Thread.hpp \
+$${FILA_SRC}/fila/mt/posix/Thread.hpp \
+$${FILA_SRC}/fila/mt/Thread.hpp \
+$${FILA_SRC}/fila/mt/apple/osx/Semaphore.hpp \
+$${FILA_SRC}/fila/mt/apple/mach/Semaphore.hpp \
+$${FILA_SRC}/fila/mt/os/Semaphore.hpp \
+$${FILA_SRC}/fila/mt/Semaphore.hpp \
 $${FILA_SRC}/fila/mt/apple/osx/Mutex.hpp \
 $${FILA_SRC}/fila/mt/posix/Mutex.hpp \
 $${FILA_SRC}/fila/mt/os/Mutex.hpp \
 $${FILA_SRC}/fila/mt/Mutex.hpp \
 $${FILA_SRC}/fila/mt/os/Os.hpp \
+$${FILA_SRC}/fila/base/Suspended.hpp \
+$${FILA_SRC}/fila/base/Ran.hpp \
 $${FILA_SRC}/fila/base/Locked.hpp \
 $${FILA_SRC}/fila/base/Acquired.hpp \
 $${FILA_SRC}/fila/base/Joined.hpp \
@@ -41,8 +51,12 @@ $${FILA_SRC}/fila/base/Attached.hpp \
 $${FILA_SRC}/fila/base/Base.hpp \
 
 hello_SOURCES += \
+$${FILA_SRC}/fila/mt/os/Thread.cpp \
+$${FILA_SRC}/fila/mt/os/Semaphore.cpp \
 $${FILA_SRC}/fila/mt/os/Mutex.cpp \
 $${FILA_SRC}/fila/mt/os/Os.cpp \
+$${FILA_SRC}/fila/base/Suspended.cpp \
+$${FILA_SRC}/fila/base/Ran.cpp \
 $${FILA_SRC}/fila/base/Locked.cpp \
 $${FILA_SRC}/fila/base/Acquired.cpp \
 $${FILA_SRC}/fila/base/Joined.cpp \
