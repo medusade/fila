@@ -36,6 +36,10 @@ fila_DEFINES += RELEASE_BUILD
 fila_DEFINES += BUILD_CONFIG=$${FILA_CONFIG}
 
 ########################################################################
+# NO Qt
+QT -= gui core
+
+########################################################################
 # patrona
 PATRONA_PKG = $${FILA_PKG}/../patrona
 PATRONA_PRJ = $${PATRONA_PKG}

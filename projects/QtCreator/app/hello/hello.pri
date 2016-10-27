@@ -27,6 +27,17 @@ $${fila_DEFINES} \
 
 ########################################################################
 hello_HEADERS += \
+$${FILA_SRC}/fila/os/os/DLLibrary.hpp \
+$${FILA_SRC}/fila/os/microsoft/windows/DLLibrary.hpp \
+$${FILA_SRC}/fila/os/apple/osx/DLLibrary.hpp \
+$${FILA_SRC}/fila/os/posix/DLLibrary.hpp \
+$${FILA_SRC}/fila/os/DLLibrary.hpp \
+
+hello_SOURCES += \
+$${FILA_SRC}/fila/os/os/DLLibrary.cpp \
+
+########################################################################
+hello_HEADERS += \
 $${FILA_SRC}/fila/mt/os/Thread.hpp \
 $${FILA_SRC}/fila/mt/apple/osx/Thread.hpp \
 $${FILA_SRC}/fila/mt/posix/Thread.hpp \
@@ -46,6 +57,7 @@ $${FILA_SRC}/fila/base/Locked.hpp \
 $${FILA_SRC}/fila/base/Acquired.hpp \
 $${FILA_SRC}/fila/base/Joined.hpp \
 $${FILA_SRC}/fila/base/Waited.hpp \
+$${FILA_SRC}/fila/base/Opened.hpp \
 $${FILA_SRC}/fila/base/Created.hpp \
 $${FILA_SRC}/fila/base/Attached.hpp \
 $${FILA_SRC}/fila/base/Base.hpp \
@@ -61,6 +73,7 @@ $${FILA_SRC}/fila/base/Locked.cpp \
 $${FILA_SRC}/fila/base/Acquired.cpp \
 $${FILA_SRC}/fila/base/Joined.cpp \
 $${FILA_SRC}/fila/base/Waited.cpp \
+$${FILA_SRC}/fila/base/Opened.cpp \
 $${FILA_SRC}/fila/base/Created.cpp \
 $${FILA_SRC}/fila/base/Attached.cpp \
 $${FILA_SRC}/fila/base/Base.cpp \
