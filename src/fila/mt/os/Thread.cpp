@@ -20,6 +20,17 @@
 ///////////////////////////////////////////////////////////////////////
 #include "fila/mt/os/Thread.hpp"
 
+#if defined(WINDOWS)
+// Windows
+#include "fila/mt/microsoft/windows/Thread.cpp"
+#elif defined(MACOSX)
+// MacOSX
+#include "fila/mt/apple/osx/Thread.cpp"
+#else // defined(WINDOWS)
+// Unix
+#include "fila/mt/posix/Thread.cpp"
+#endif // defined(WINDOWS)
+
 namespace fila {
 namespace mt {
 namespace os {

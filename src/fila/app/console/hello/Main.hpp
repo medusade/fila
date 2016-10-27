@@ -25,6 +25,9 @@
 #include "fila/mt/os/Thread.hpp"
 #include "fila/mt/os/Semaphore.hpp"
 #include "fila/mt/os/Mutex.hpp"
+#include "fila/mt/os/Sleep.hpp"
+#include "fila/os/os/DLLibrary.hpp"
+#include "fila/os/microsoft/windows/DLLibrary.hpp"
 #include "crono/io/Logger.hpp"
 
 namespace fila {
@@ -43,13 +46,24 @@ public:
         public:
             Thread(mt::os::Semaphore& sem): m_sem(sem) {}
             virtual void Run() {
-                CRONO_LOG_DEBUG("sleep(1)...");
-                sleep(1);
+                CRONO_LOG_DEBUG("mt::os::SleepSeconds(1)...");
+                mt::os::SleepSeconds(1);
                 CRONO_LOG_DEBUG("m_sem.Release()...");
                 m_sem.Release();
             }
             mt::os::Semaphore& m_sem;
         };
+        const char* libraryName = "libfila-hello";
+        if ((argc > (optind)) && (argv[optind]) && (argv[optind][0])) {
+            libraryName = argv[optind];
+        }
+        try {
+            os::os::DLLibrary dl;
+            dl.Open(libraryName);
+        } catch (const OpenException& e) {
+            CRONO_LOG_ERROR("...caught const OpenException& e = \"" << e.StatusToChars() << "\"");
+        }
+        return 0;
         try {
             mt::os::Semaphore sem;
             mt::os::Mutex mutex;

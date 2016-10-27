@@ -13,28 +13,26 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: DLLibrary.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/23/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
+#ifndef _FILA_OS_APPLE_OSX_DLLIBRARY_HPP
+#define _FILA_OS_APPLE_OSX_DLLIBRARY_HPP
 
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "fila/os/posix/DLLibrary.hpp"
 
 namespace fila {
-namespace mt {
 namespace os {
+namespace apple {
+namespace osx {
 
+typedef posix::DLLibrary DLLibrary;
+
+} // namespace osx 
+} // namespace apple 
 } // namespace os 
-} // namespace mt 
 } // namespace fila 
+
+#endif // _FILA_OS_APPLE_OSX_DLLIBRARY_HPP 

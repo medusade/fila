@@ -13,28 +13,31 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: Sleep.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/3/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
+#ifndef _FILA_MT_APPLE_OSX_SLEEP_HPP
+#define _FILA_MT_APPLE_OSX_SLEEP_HPP
 
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "fila/mt/posix/Sleep.hpp"
 
 namespace fila {
 namespace mt {
-namespace os {
+namespace apple {
+namespace osx {
 
-} // namespace os 
+inline void SleepSeconds(seconds_t seconds) {
+    posix::SleepSeconds(seconds);
+}
+inline void SleepMilliseconds(mseconds_t milliseconds) {
+    posix::SleepMilliseconds(milliseconds);
+}
+
+} // namespace osx
+} // namespace apple 
 } // namespace mt 
 } // namespace fila 
+
+#endif // _FILA_MT_APPLE_OSX_SLEEP_HPP 

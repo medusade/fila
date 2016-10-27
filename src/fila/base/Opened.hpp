@@ -13,28 +13,27 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: Opened.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/23/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
+#ifndef _FILA_BASE_OPENED_HPP
+#define _FILA_BASE_OPENED_HPP
 
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "patrona/cpp/xos/base/Opened.hpp"
 
 namespace fila {
-namespace mt {
-namespace os {
 
-} // namespace os 
-} // namespace mt 
-} // namespace fila 
+typedef ::patrona::OpenStatus OpenStatus;
+static const OpenStatus OpenSuccess = ::patrona::OpenSuccess;
+static const OpenStatus OpenFailed = ::patrona::OpenFailed;
+static const OpenStatus CloseSuccess = ::patrona::CloseSuccess;
+static const OpenStatus CloseFailed = ::patrona::CloseFailed;
+
+typedef ::patrona::OpenException OpenException;
+typedef ::patrona::Opener Opener;
+
+} // namespace fila
+
+#endif // _FILA_BASE_OPENED_HPP 

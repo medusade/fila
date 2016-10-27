@@ -13,28 +13,21 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: DLLibraryMain.cpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/25/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
-
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "fila/app/console/libhello/DLLibraryMain.hpp"
+#include "fila/os/os/DLLibraryMain.cpp"
 
 namespace fila {
-namespace mt {
 namespace os {
 
-} // namespace os 
-} // namespace mt 
-} // namespace fila 
+DLLibraryMain& DLLibraryMain::TheDLLibraryMain() {
+    static app::console::libhello::DLLibraryMain theDLLibraryMain;
+    return theDLLibraryMain;
+}
+
+} // namespace os
+} // namespace fila

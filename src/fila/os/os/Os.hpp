@@ -13,28 +13,36 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: Os.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/23/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
+#ifndef _FILA_OS_OS_OS_HPP
+#define _FILA_OS_OS_OS_HPP
+
+#include "fila/base/Base.hpp"
+
+namespace fila {
+namespace os {
+namespace microsoft { namespace windows { } }
+namespace apple { namespace osx { } }
+namespace posix { }
+namespace os {
 
 #if defined(WINDOWS)
 // Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
+namespace os = microsoft::windows;
 #elif defined(MACOSX)
 // MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
+namespace os = apple::osx;
 #else // defined(WINDOWS)
 // Unix
-#include "fila/mt/posix/Mutex.cpp"
+namespace os = posix;
 #endif // defined(WINDOWS)
 
-namespace fila {
-namespace mt {
-namespace os {
-
+} // namespace os
 } // namespace os 
-} // namespace mt 
 } // namespace fila 
+
+#endif // _FILA_OS_OS_OS_HPP 

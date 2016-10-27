@@ -20,6 +20,17 @@
 ///////////////////////////////////////////////////////////////////////
 #include "fila/mt/os/Semaphore.hpp"
 
+#if defined(WINDOWS)
+// Windows
+#include "fila/mt/microsoft/windows/Semaphore.cpp"
+#elif defined(MACOSX)
+// MacOSX
+#include "fila/mt/apple/osx/Semaphore.cpp"
+#else // defined(WINDOWS)
+// Unix
+#include "fila/mt/posix/Semaphore.cpp"
+#endif // defined(WINDOWS)
+
 namespace fila {
 namespace mt {
 namespace os {

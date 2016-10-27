@@ -13,28 +13,33 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: DLLibraryMain.cpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/23/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
-
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "fila/os/DLLibraryMain.hpp"
+#include "crono/io/Logger.hpp"
 
 namespace fila {
-namespace mt {
 namespace os {
 
-} // namespace os 
-} // namespace mt 
-} // namespace fila 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+void _init(void) {
+    DLLibraryMain& theDLLibraryMain = DLLibraryMain::TheDLLibraryMain();
+    CRONO_STDERR_LOG_DEBUG("theDLLibraryMain.Init()...");
+    if (!(theDLLibraryMain.Init())) {
+        CRONO_STDERR_LOG_ERROR("...failed on theDLLibraryMain.Init()");
+    }
+}
+void _fini(void) {
+    DLLibraryMain& theDLLibraryMain = DLLibraryMain::TheDLLibraryMain();
+    CRONO_STDERR_LOG_DEBUG("theDLLibraryMain.Fini()...");
+    if (!(theDLLibraryMain.Fini())) {
+        CRONO_STDERR_LOG_ERROR("...failed on theDLLibraryMain.Fini()");
+    }
+}
+
+} // namespace os
+} // namespace fila

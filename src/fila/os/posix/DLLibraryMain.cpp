@@ -13,28 +13,29 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: DLLibraryMain.cpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/23/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
-
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "fila/os/posix/DLLibraryMain.hpp"
+#include "fila/os/DLLibraryMain.cpp"
 
 namespace fila {
-namespace mt {
 namespace os {
+namespace posix {
 
-} // namespace os 
-} // namespace mt 
-} // namespace fila 
+} // namespace posix
+} // namespace os
+} // namespace fila
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+void __attribute__ ((constructor)) _posix_init(void) {
+    CRONO_STDERR_LOG_DEBUG("fila::os::_init()...");
+    fila::os::_init();
+}
+void __attribute__ ((destructor)) _posix_fini(void) {
+    CRONO_STDERR_LOG_DEBUG("fila::os::_fini()...");
+    fila::os::_fini();
+}

@@ -13,28 +13,48 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.cpp
+///   File: Sleep.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 10/3/2016
 ///////////////////////////////////////////////////////////////////////
-#include "fila/mt/os/Mutex.hpp"
+#ifndef _FILA_MT_POSIX_SLEEP_HPP
+#define _FILA_MT_POSIX_SLEEP_HPP
 
-#if defined(WINDOWS)
-// Windows
-#include "fila/mt/microsoft/windows/Mutex.cpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "fila/mt/apple/osx/Mutex.cpp"
-#else // defined(WINDOWS)
-// Unix
-#include "fila/mt/posix/Mutex.cpp"
-#endif // defined(WINDOWS)
+#include "fila/mt/Sleep.hpp"
+#include "crono/io/Logger.hpp"
 
 namespace fila {
 namespace mt {
-namespace os {
+namespace posix {
 
-} // namespace os 
+void SleepSeconds(seconds_t seconds) {
+    unsigned int secondsRemain = 0;
+
+    CRONO_LOG_DEBUG("sleep(seconds = " << seconds << ")...");
+    if ((secondsRemain = sleep(seconds))) {
+        CRONO_LOG_ERROR("...interrupted secondsRemain = " << secondsRemain << " on sleep(seconds = " << seconds << ")");
+    }
+}
+void SleepMilliseconds(mseconds_t milliseconds) {
+    useconds_t useconds = milliseconds*1000;
+    int err = 0;
+
+    if (1000 <= (milliseconds)) {
+        CRONO_LOG_DEBUG("usleep(useconds = " << useconds << ")...");
+    } else {
+        if (500 <= (milliseconds)) {
+            CRONO_LOG_TRACE("usleep(useconds = " << useconds << ")...");
+        }
+    }
+    if ((err = usleep(useconds))) {
+        err = errno;
+        CRONO_LOG_ERROR("...failed err = " << err << " on usleep(useconds = " << useconds << ")");
+    }
+}
+
+} // namespace posix
 } // namespace mt 
 } // namespace fila 
+
+#endif // _FILA_MT_POSIX_SLEEP_HPP 
