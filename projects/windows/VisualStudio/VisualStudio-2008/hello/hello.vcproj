@@ -345,6 +345,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\..\..\src\fila\mt\os\Process.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\fila\mt\os\Semaphore.cpp"
 				>
 			</File>
@@ -372,6 +376,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\fila\mt\os\Mutex.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\fila\mt\os\Process.hpp"
 				>
 			</File>
 			<File

@@ -27,6 +27,38 @@ $${fila_DEFINES} \
 
 ########################################################################
 hello_HEADERS += \
+$${NADIR_SRC}/thirdparty/gnu/glibc/posix/execvpe.h \
+$${NADIR_SRC}/nadir/base/array.hpp \
+$${NADIR_SRC}/nadir/base/wrapped.hpp \
+
+hello_SOURCES += \
+$${NADIR_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
+$${NADIR_SRC}/nadir/base/array.cpp \
+$${NADIR_SRC}/nadir/base/wrapped.cpp \
+
+########################################################################
+hello_HEADERS += \
+$${PATRONA_SRC}/patrona/cpp/xos/console/getopt/MainOpt.hpp \
+$${PATRONA_SRC}/patrona/cpp/xos/console/getopt/Main.hpp \
+$${PATRONA_SRC}/patrona/cpp/xos/console/Main.hpp \
+$${PATRONA_SRC}/patrona/cpp/xos/base/String.hpp \
+$${PATRONA_SRC}/patrona/cpp/xos/base/Array.hpp \
+
+hello_SOURCES += \
+$${PATRONA_SRC}/patrona/cpp/xos/console/getopt/MainOpt.cpp \
+$${PATRONA_SRC}/patrona/cpp/xos/base/String.cpp \
+$${PATRONA_SRC}/patrona/cpp/xos/base/Array.cpp \
+
+########################################################################
+hello_HEADERS += \
+$${CRONO_SRC}/crono/console/getopt/MainOpt.hpp \
+$${CRONO_SRC}/crono/console/getopt/Main.hpp \
+$${CRONO_SRC}/crono/console/Main.hpp \
+
+hello_SOURCES += \
+
+########################################################################
+hello_HEADERS += \
 $${FILA_SRC}/fila/os/os/DLLibrary.hpp \
 $${FILA_SRC}/fila/os/microsoft/windows/DLLibrary.hpp \
 $${FILA_SRC}/fila/os/apple/osx/DLLibrary.hpp \
@@ -38,6 +70,11 @@ $${FILA_SRC}/fila/os/os/DLLibrary.cpp \
 
 ########################################################################
 hello_HEADERS += \
+$${FILA_SRC}/fila/mt/os/Process.hpp \
+$${FILA_SRC}/fila/mt/microsoft/windows/Process.hpp \
+$${FILA_SRC}/fila/mt/apple/osx/Process.hpp \
+$${FILA_SRC}/fila/mt/posix/Process.hpp \
+$${FILA_SRC}/fila/mt/Process.hpp \
 $${FILA_SRC}/fila/mt/os/Thread.hpp \
 $${FILA_SRC}/fila/mt/apple/osx/Thread.hpp \
 $${FILA_SRC}/fila/mt/posix/Thread.hpp \
@@ -61,8 +98,10 @@ $${FILA_SRC}/fila/base/Opened.hpp \
 $${FILA_SRC}/fila/base/Created.hpp \
 $${FILA_SRC}/fila/base/Attached.hpp \
 $${FILA_SRC}/fila/base/Base.hpp \
+$${FILA_SRC}/fila/base/Argv.hpp \
 
 hello_SOURCES += \
+$${FILA_SRC}/fila/mt/microsoft/windows/Process.cpp \
 $${FILA_SRC}/fila/mt/os/Thread.cpp \
 $${FILA_SRC}/fila/mt/os/Semaphore.cpp \
 $${FILA_SRC}/fila/mt/os/Mutex.cpp \
@@ -77,9 +116,12 @@ $${FILA_SRC}/fila/base/Opened.cpp \
 $${FILA_SRC}/fila/base/Created.cpp \
 $${FILA_SRC}/fila/base/Attached.cpp \
 $${FILA_SRC}/fila/base/Base.cpp \
+$${FILA_SRC}/fila/base/Argv.cpp \
 
 ########################################################################
 hello_HEADERS += \
+$${FILA_SRC}/fila/console/getopt/MainOpt.hpp \
+$${FILA_SRC}/fila/console/getopt/Main.hpp \
 $${FILA_SRC}/fila/console/Main.hpp \
 $${FILA_SRC}/fila/console/Main_main.hpp \
 $${FILA_SRC}/fila/app/console/hello/Main.hpp \
