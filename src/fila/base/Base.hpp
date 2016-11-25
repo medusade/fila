@@ -22,12 +22,18 @@
 #define _FILA_BASE_BASE_HPP
 
 #include "nadir/base/string.hpp"
+#include "nadir/base/array.hpp"
+#include "nadir/base/wrapped.hpp"
 #include "nadir/base/base.hpp"
 
 namespace fila {
 
 typedef ::nadir::implement_base ImplementBase;
 typedef ::nadir::base Base;
+
+typedef ::nadir::char_array CharArray;
+typedef ::nadir::tchar_array TCharArray;
+typedef ::nadir::wchar_array WCharArray;
 
 typedef ::nadir::char_string String;
 typedef ::nadir::tchar_string TString;
