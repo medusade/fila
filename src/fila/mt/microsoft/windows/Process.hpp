@@ -42,11 +42,11 @@ typedef struct _PROCESS_INFORMATION {
 } PROCESS_INFORMATION, *LPPROCESS_INFORMATION;
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-typedef struct _STARTUPINFO {
+typedef struct _STARTUPINFOA {
   DWORD  cb;
-  LPTSTR lpReserved;
-  LPTSTR lpDesktop;
-  LPTSTR lpTitle;
+  LPSTR lpReserved;
+  LPSTR lpDesktop;
+  LPSTR lpTitle;
   DWORD  dwX;
   DWORD  dwY;
   DWORD  dwXSize;
@@ -61,7 +61,29 @@ typedef struct _STARTUPINFO {
   HANDLE hStdInput;
   HANDLE hStdOutput;
   HANDLE hStdError;
-} STARTUPINFO, *LPSTARTUPINFO;
+} STARTUPINFOA, *LPSTARTUPINFOA;
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+typedef struct _STARTUPINFOW {
+  DWORD  cb;
+  LPWSTR lpReserved;
+  LPWSTR lpDesktop;
+  LPWSTR lpTitle;
+  DWORD  dwX;
+  DWORD  dwY;
+  DWORD  dwXSize;
+  DWORD  dwYSize;
+  DWORD  dwXCountChars;
+  DWORD  dwYCountChars;
+  DWORD  dwFillAttribute;
+  DWORD  dwFlags;
+  WORD   wShowWindow;
+  WORD   cbReserved2;
+  LPBYTE lpReserved2;
+  HANDLE hStdInput;
+  HANDLE hStdOutput;
+  HANDLE hStdError;
+} STARTUPINFOW, *LPSTARTUPINFOW;
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 enum {
@@ -111,7 +133,7 @@ BOOL WINAPI CreateProcessA(
   _In_        DWORD                 dwCreationFlags,
   _In_opt_    LPVOID                lpEnvironment,
   _In_opt_    LPCSTR                lpCurrentDirectory,
-  _In_        LPSTARTUPINFO         lpStartupInfo,
+  _In_        LPSTARTUPINFOA        lpStartupInfo,
   _Out_       LPPROCESS_INFORMATION lpProcessInformation
 );
 BOOL WINAPI CreateProcessW(
@@ -123,7 +145,7 @@ BOOL WINAPI CreateProcessW(
   _In_        DWORD                 dwCreationFlags,
   _In_opt_    LPVOID                lpEnvironment,
   _In_opt_    LPCWSTR               lpCurrentDirectory,
-  _In_        LPSTARTUPINFO         lpStartupInfo,
+  _In_        LPSTARTUPINFOW        lpStartupInfo,
   _Out_       LPPROCESS_INFORMATION lpProcessInformation
 );
 ///////////////////////////////////////////////////////////////////////

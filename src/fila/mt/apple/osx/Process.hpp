@@ -20,6 +20,7 @@
 ///////////////////////////////////////////////////////////////////////
 #ifndef _FILA_MT_APPLE_OSX_PROCESS_HPP
 #define _FILA_MT_APPLE_OSX_PROCESS_HPP
+
 #include "fila/mt/posix/Process.hpp"
 
 namespace fila {
@@ -27,29 +28,34 @@ namespace mt {
 namespace apple {
 namespace osx {
 
-
+typedef posix::ProcessTImplements ProcessTImplements;
+typedef posix::Process ProcessTExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: ProcessT
 ///////////////////////////////////////////////////////////////////////
 template
 <class TImplements = ProcessTImplements, class TExtends = ProcessTExtends>
-class _EXPORT_CLASS ProcessT: virtual public TImplements,public TExtends {
+
+class _EXPORT_CLASS ProcessT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     ProcessT() {
     }
     virtual ~ProcessT() {
     }
-};
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+};
+typedef ProcessT<> Process;
 
 } // namespace osx 
 } // namespace apple 
 } // namespace mt 
 } // namespace fila 
 
-
 #endif // _FILA_MT_APPLE_OSX_PROCESS_HPP 
-        
-

@@ -52,7 +52,7 @@ BOOL WINAPI CreateProcessA(
   _In_        DWORD                 dwCreationFlags,
   _In_opt_    LPVOID                lpEnvironment,
   _In_opt_    LPCSTR                lpCurrentDirectory,
-  _In_        LPSTARTUPINFO         lpStartupInfo,
+  _In_        LPSTARTUPINFOA        lpStartupInfo,
   _Out_       LPPROCESS_INFORMATION lpProcessInformation
 ) {
     return FALSE;
@@ -66,7 +66,7 @@ BOOL WINAPI CreateProcessW(
   _In_        DWORD                 dwCreationFlags,
   _In_opt_    LPVOID                lpEnvironment,
   _In_opt_    LPCWSTR               lpCurrentDirectory,
-  _In_        LPSTARTUPINFO         lpStartupInfo,
+  _In_        LPSTARTUPINFOW        lpStartupInfo,
   _Out_       LPPROCESS_INFORMATION lpProcessInformation
 ) {
     return FALSE;

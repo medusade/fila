@@ -39,6 +39,8 @@ namespace fila {
 namespace mt {
 namespace os {
 
+typedef os::Process Process;
+
 } // namespace os 
 } // namespace mt 
 } // namespace fila 

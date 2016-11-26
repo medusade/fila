@@ -22,14 +22,12 @@
 #define _FILA_APP_CONSOLE_HELLO_MAIN_HPP
 
 #include "fila/console/getopt/Main.hpp"
-#include "fila/mt/microsoft/windows/Process.hpp"
 #include "fila/mt/os/Process.hpp"
 #include "fila/mt/os/Thread.hpp"
 #include "fila/mt/os/Semaphore.hpp"
 #include "fila/mt/os/Mutex.hpp"
 #include "fila/mt/os/Sleep.hpp"
 #include "fila/os/os/DLLibrary.hpp"
-#include "fila/os/microsoft/windows/DLLibrary.hpp"
 #include "fila/base/Argv.hpp"
 #include "crono/io/Logger.hpp"
 
@@ -148,8 +146,7 @@ protected:
         }
         try {
             fila::Argv argv(&exeName, 1);
-            //fila::mt::posix::Process p;
-            fila::mt::microsoft::windows::Process p;
+            fila::mt::os::Process p;
             p.Create(exeName, argv.Elements(), env, 0, 0);
         } catch (const CreateException& e) {
             CRONO_LOG_ERROR("...caught const CreateException& e = \"" << e.StatusToChars() << "\"");
