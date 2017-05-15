@@ -197,8 +197,8 @@ public:
                 int err = 0;
                 struct timespec untilTime;
                 clock_gettime(CLOCK_REALTIME, &untilTime);
-                untilTime.tv_sec +=  milliseconds/1000;
-                untilTime.tv_nsec +=  (milliseconds%1000)*1000;
+                untilTime.tv_sec +=  mseconds_seconds(milliseconds);
+                untilTime.tv_nsec +=  mseconds_nseconds(milliseconds);
 
                 CRONO_LOG_TRACE("sem_timedwait(sem, &untilTime)...");
                 if (!(err = sem_timedwait(sem, &untilTime))) {

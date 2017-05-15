@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2016 $organization$
+/// Copyright (c) 1988-2017 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,18 +13,16 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.hpp
+///   File: semaphore.hpp
 ///
 /// Author: $author$
-///   Date: 9/26/2016
+///   Date: 5/8/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_MT_APPLE_MACH_SEMAPHORE_HPP
-#define _FILA_MT_APPLE_MACH_SEMAPHORE_HPP
+#ifndef _FILA_NADIR_MT_APPLE_MACH_SEMAPHORE_HPP
+#define _FILA_NADIR_MT_APPLE_MACH_SEMAPHORE_HPP
 
-#include "fila/mt/Semaphore.hpp"
-#include "fila/base/Created.hpp"
-#include "fila/base/Attached.hpp"
-#include "crono/io/Logger.hpp"
+#include "fila/nadir/mt/semaphore.hpp"
+#include "crono/nadir/io/logger.hpp"
 
 #include <mach/task.h>
 #include <mach/mach.h>
@@ -35,83 +33,88 @@ namespace mt {
 namespace apple {
 namespace mach {
 
-typedef semaphore_t* SemaphoreTAttachedT;
-typedef ::patrona::CreatorT<mt::Semaphore> SemaphoreTAttacherImplements;
-typedef ::patrona::AttacherT<SemaphoreTAttachedT, int, 0, SemaphoreTAttacherImplements> SemaphoreTAttacher;
-typedef ::patrona::AttachedT<SemaphoreTAttachedT, int, 0, SemaphoreTAttacher> SemaphoreTAttached;
-typedef ::patrona::CreatedT<SemaphoreTAttachedT, int, 0, SemaphoreTAttacher, SemaphoreTAttached> SemaphoreTCreated;
-typedef SemaphoreTAttacher SemaphoreTImplements;
-typedef SemaphoreTCreated SemaphoreTExtends;
+typedef semaphore_t* semaphore_attached_t;
+typedef mt::semaphore semaphore_creator;
+typedef nadir::attachert<semaphore_attached_t, int, 0, semaphore_creator> semaphore_attacher;
+typedef nadir::attachedt<semaphore_attached_t, int, 0, semaphore_attacher, base> semaphore_attached;
+typedef nadir::createdt<semaphore_attached_t, int, 0, semaphore_attacher, semaphore_attached> semaphore_created;
+typedef semaphore_creator semaphoret_implements;
+typedef semaphore_created semaphoret_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
+///  Class: semaphoret
 ///////////////////////////////////////////////////////////////////////
 template
-<class TImplements = SemaphoreTImplements, class TExtends = SemaphoreTExtends>
+<class TImplements = semaphoret_implements, class TExtends = semaphoret_extends>
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
+class _EXPORT_CLASS semaphoret: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    SemaphoreT(semaphore_t* attachedTo, bool isCreated)
+    semaphoret(semaphore_t* attachedTo, bool isCreated)
     : Extends(attachedTo, isCreated) {
     }
-    SemaphoreT(semaphore_t* attachedTo): Extends(attachedTo) {
+    semaphoret(semaphore_t* attachedTo): Extends(attachedTo) {
     }
-    SemaphoreT(size_t initiallyReleased) {
-        if (!(this->Create(initiallyReleased))) {
-            CreateException e(CreateFailed);
+    semaphoret(size_t initiallyReleased) {
+        if (!(this->create(initiallyReleased))) {
+            create_exception e(create_failed);
             throw (e);
         }
     }
-    SemaphoreT() {
-        if (!(this->Create())) {
-            CreateException e(CreateFailed);
+    semaphoret(const semaphoret& copy): Extends(copy.attached_to()) {
+    }
+    semaphoret() {
+        if (!(this->create())) {
+            create_exception e(create_failed);
             throw (e);
         }
     }
-    virtual ~SemaphoreT() {
-        if (!(this->Destroyed())) {
-            CreateException e(DestroyFailed);
+    virtual ~semaphoret() {
+        if (!(this->destroyed())) {
+            create_exception e(destroy_failed);
             throw (e);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initiallyReleased) {
+    virtual bool create(size_t initiallyReleased) {
         semaphore_t* detached = 0;
-        if ((detached = CreateAttached(initiallyReleased))) {
-            this->SetIsCreated();
+        if ((detached = create_attached(initiallyReleased))) {
+            this->set_is_created();
             return detached;
         }
         return false;
     }
-    virtual bool Create() {
-        return Create(0);
+    virtual bool create() {
+        return create(0);
     }
-    virtual bool Destroy() {
+    virtual bool destroy() {
         semaphore_t* detached = 0;
-        if ((detached = this->Detach())) {
-            if ((DestroyDetached(detached))) {
+        if ((detached = this->detach())) {
+            if ((destroy_detached(detached))) {
                 return true;
             }
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual semaphore_t* CreateAttached(size_t initiallyReleased) {
+    virtual semaphore_t* create_attached(size_t initiallyReleased) {
         semaphore_t* detached = 0;
-        if ((this->Destroyed())) {
-            if ((detached = CreateDetached(m_semaphore, initiallyReleased))) {
-                this->Attach(detached);
+        if ((this->destroyed())) {
+            if ((detached = create_detached(m_semaphore, initiallyReleased))) {
+                this->attach(detached);
                 return detached;
             }
         }
         return 0;
     }
-    virtual semaphore_t* CreateDetached
+    virtual semaphore_t* create_detached
     (semaphore_t& semaphore, size_t initiallyReleased) const {
         int err = 0;
         task_t task = mach_task_self();
@@ -125,7 +128,7 @@ public:
         }
         return 0;
     }
-    virtual bool DestroyDetached(semaphore_t* semaphore) const {
+    virtual bool destroy_detached(semaphore_t* semaphore) const {
         if ((semaphore)) {
             int err = 0;
             task_t task = mach_task_self();
@@ -139,17 +142,18 @@ public:
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Acquire() {
-        if (AcquireSuccess == (UntimedAcquire())) {
+    virtual bool acquire() {
+        if (acquire_success == (untimed_acquire())) {
             return true;
         }
         return false;
     }
-    virtual bool Release() {
+    virtual bool release() {
         semaphore_t* semaphore = 0;
-        if ((semaphore = this->m_attachedTo)) {
+        if ((semaphore = this->attached_to())) {
             int err = 0;
 
             CRONO_LOG_DEBUG("semaphore_signal(*semaphore)...");
@@ -161,15 +165,15 @@ public:
         }
         return false;
     }
-    virtual AcquireStatus TryAcquire() {
-        return TimedAcquire(0);
+    virtual acquire_status try_acquire() {
+        return timed_acquire(0);
     }
-    virtual AcquireStatus TimedAcquire(mseconds_t milliseconds) {
+    virtual acquire_status timed_acquire(mseconds_t milliseconds) {
         if (0 > (milliseconds)) {
-            return UntimedAcquire();
+            return untimed_acquire();
         } else {
             semaphore_t* semaphore = 0;
-            if ((semaphore = this->m_attachedTo)) {
+            if ((semaphore = this->attached_to())) {
                 int err = 0;
                 mach_timespec_t waitTime;
                 waitTime.tv_sec = mseconds_seconds(milliseconds);
@@ -177,15 +181,15 @@ public:
 
                 CRONO_LOG_TRACE("semaphore_timedwait(*semaphore, waitTime)...");
                 if (KERN_SUCCESS == (err = semaphore_timedwait(*semaphore, waitTime))) {
-                    return AcquireSuccess;
+                    return acquire_success;
                 } else {
                     if (KERN_OPERATION_TIMED_OUT == (err)) {
                         CRONO_LOG_TRACE("...failed err = KERN_OPERATION_TIMED_OUT on semaphore_timedwait(*semaphore, waitTime)");
-                        return AcquireBusy;
+                        return acquire_busy;
                     } else {
                         if (KERN_ABORTED == (err)) {
                             CRONO_LOG_ERROR("...failed err = KERN_ABORTED on semaphore_timedwait(*semaphore, waitTime)");
-                            return AcquireInterrupted;
+                            return acquire_interrupted;
                         } else {
                             CRONO_LOG_ERROR("...failed err = " << err << " on semaphore_timedwait(*semaphore, waitTime)");
                         }
@@ -193,42 +197,43 @@ public:
                 }
             }
         }
-        return AcquireFailed;
+        return acquire_failed;
     }
-    virtual AcquireStatus UntimedAcquire() {
+    virtual acquire_status untimed_acquire() {
         semaphore_t* semaphore = 0;
-        if ((semaphore = this->m_attachedTo)) {
+        if ((semaphore = this->attached_to())) {
             int err = 0;
 
             CRONO_LOG_DEBUG("semaphore_wait(*semaphore)...");
             if (KERN_SUCCESS == (err = semaphore_wait(*semaphore))) {
-                return AcquireSuccess;
+                return acquire_success;
             } else {
                 if (KERN_OPERATION_TIMED_OUT == (err)) {
                     CRONO_LOG_ERROR("...failed err = KERN_OPERATION_TIMED_OUT on semaphore_wait(*semaphore)");
-                    return AcquireBusy;
+                    return acquire_busy;
                 } else {
                     if (KERN_ABORTED == (err)) {
                         CRONO_LOG_ERROR("...failed err = KERN_ABORTED on semaphore_wait(*semaphore)");
-                        return AcquireInterrupted;
+                        return acquire_interrupted;
                     } else {
                         CRONO_LOG_ERROR("...failed err = " << err << " on semaphore_wait(*semaphore)");
                     }
                 }
             }
         }
-        return AcquireFailed;
+        return acquire_failed;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
     semaphore_t m_semaphore;
 };
-typedef SemaphoreT<> Semaphore;
+typedef semaphoret<> semaphore;
 
-} // namespace mach
+} // namespace mach 
 } // namespace apple 
 } // namespace mt 
 } // namespace fila 
 
-#endif // _FILA_MT_APPLE_MACH_SEMAPHORE_HPP 
+#endif // _FILA_NADIR_MT_APPLE_MACH_SEMAPHORE_HPP 

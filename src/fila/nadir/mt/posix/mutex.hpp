@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2016 $organization$
+/// Copyright (c) 1988-2017 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -13,22 +13,16 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.hpp
+///   File: mutex.hpp
 ///
 /// Author: $author$
-///   Date: 9/24/2016
+///   Date: 5/7/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_MT_POSIX_MUTEX_HPP
-#define _FILA_MT_POSIX_MUTEX_HPP
+#ifndef _FILA_NADIR_MT_POSIX_MUTEX_HPP
+#define _FILA_NADIR_MT_POSIX_MUTEX_HPP
 
-#include "fila/mt/Mutex.hpp"
-#include "fila/base/Created.hpp"
-#include "fila/base/Attached.hpp"
-#include "crono/io/Logger.hpp"
-
-#include <pthread.h>
-#include <time.h>
-#include <errno.h>
+#include "fila/nadir/mt/mutex.hpp"
+#include "crono/nadir/io/logger.hpp"
 
 #if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
 #if !defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
@@ -40,86 +34,94 @@ namespace fila {
 namespace mt {
 namespace posix {
 
-typedef pthread_mutex_t* MutexTAttachedT;
-typedef ::patrona::CreatorT<mt::Mutex> MutexTAttacherImplements;
-typedef ::patrona::AttacherT<MutexTAttachedT, int, 0, MutexTAttacherImplements> MutexTAttacher;
-typedef ::patrona::AttachedT<MutexTAttachedT, int, 0, MutexTAttacher> MutexTAttached;
-typedef ::patrona::CreatedT<MutexTAttachedT, int, 0, MutexTAttacher, MutexTAttached> MutexTCreated;
-typedef MutexTAttacher MutexTImplements;
-typedef MutexTCreated MutexTExtends;
+typedef pthread_mutexattr_t mutexattr_t;
+typedef pthread_mutex_t mutex_t;
+typedef mutex_t* mutex_attached_t;
+
+typedef mt::mutex mutex_creator;
+typedef nadir::attachert<mutex_attached_t, int, 0, mutex_creator> mutex_attacher;
+typedef nadir::attachedt<mutex_attached_t, int, 0, mutex_attacher, base> mutex_attached;
+typedef nadir::createdt<mutex_attached_t, int, 0, mutex_attacher, mutex_attached> mutex_created;
+typedef mutex_attacher mutext_implements;
+typedef mutex_created mutext_extends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: MutexT
+///  Class: mutext
 ///////////////////////////////////////////////////////////////////////
 template
-<class TImplements = MutexTImplements, class TExtends = MutexTExtends>
+<class TImplements = mutext_implements, class TExtends = mutext_extends>
 
-class _EXPORT_CLASS MutexT: virtual public TImplements, public TExtends {
+class _EXPORT_CLASS mutext: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    MutexT(pthread_mutex_t* attachedTo, bool isCreated)
-    : Extends(attachedTo, isCreated) {
+    mutext(pthread_mutex_t* attached, bool isCreated)
+    : Extends(attached, isCreated) {
     }
-    MutexT(pthread_mutex_t* attachedTo): Extends(attachedTo) {
+    mutext(pthread_mutex_t* attached): Extends(attached) {
     }
-    MutexT(bool initallyLocked) {
-        if (!(this->Create(initallyLocked))) {
-            CreateException e(CreateFailed);
+    mutext(bool initally_locked) {
+        if (!(this->create(initally_locked))) {
+            create_exception e(create_failed);
             throw (e);
         }
     }
-    MutexT() {
-        if (!(this->Create())) {
-            CreateException e(CreateFailed);
+    mutext(mutext& copy): Extends(copy.attached_to()) {
+    }
+    mutext() {
+        if (!(this->create())) {
+            create_exception e(create_failed);
             throw (e);
         }
     }
-    virtual ~MutexT() {
-        if (!(this->Destroyed())) {
-            CreateException e(DestroyFailed);
+    virtual ~mutext() {
+        if (!(this->destroyed())) {
+            create_exception e(destroy_failed);
             throw (e);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(bool initallyLocked) {
-        if (!(initallyLocked)) {
-            return this->Create();
+    virtual bool create(bool initally_locked) {
+        if (!(initally_locked)) {
+            return this->create();
         }
         return false;
     }
-    virtual bool Create() {
+    virtual bool create() {
         pthread_mutex_t* detached = 0;
-        if ((detached = CreateAttached())) {
-            this->SetIsCreated();
+        if ((detached = create_attached())) {
+            this->set_is_created();
             return detached;
         }
         return false;
     }
-    virtual bool Destroy() {
+    virtual bool destroy() {
         pthread_mutex_t* detached = 0;
-        if ((detached = this->Detach())) {
-            if ((DestroyDetached(detached))) {
+        if ((detached = this->detach())) {
+            if ((destroy_detached(detached))) {
                 return true;
             }
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual pthread_mutex_t* CreateAttached() {
+    virtual pthread_mutex_t* create_attached() {
         pthread_mutex_t* detached = 0;
-        if ((this->Destroyed())) {
-            if ((detached = CreateDetached(m_mutexattr, m_mutex))) {
-                this->Attach(detached);
+        if ((this->destroyed())) {
+            if ((detached = create_detached(mutexattr_, mutex_))) {
+                this->attach(detached);
                 return detached;
             }
         }
         return 0;
     }
-    virtual pthread_mutex_t* CreateDetached
+    virtual pthread_mutex_t* create_detached
     (pthread_mutexattr_t& mutexattr, pthread_mutex_t& mutex) const {
         int err = 0;
 
@@ -131,146 +133,162 @@ public:
 
                 CRONO_LOG_DEBUG("pthread_mutexattr_destroy(&mutexattr)...");
                 if ((err = pthread_mutexattr_destroy(&mutexattr))) {
+                    CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutexattr_destroy(&mutexattr)");
+
+                    CRONO_LOG_DEBUG("pthread_mutex_destroy(mutex)...");
                     if ((err = pthread_mutex_destroy(&mutex))) {
+                        CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutex_destroy(mutex)");
                     }
                     return 0;
                 }
                 return &mutex;
+            } else {
+                CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutex_init(&mutex, &mutexattr)");
             }
+            CRONO_LOG_DEBUG("pthread_mutexattr_destroy(&mutexattr)...");
             if ((err = pthread_mutexattr_destroy(&mutexattr))) {
+                CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutexattr_destroy(&mutexattr)");
             }
+        } else {
+            CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutexattr_init(&mutexattr)");
         }
         return 0;
     }
-    virtual bool DestroyDetached(pthread_mutex_t* mutex) const {
+    virtual bool destroy_detached(pthread_mutex_t* mutex) const {
         if ((mutex)) {
             int err = 0;
+
             CRONO_LOG_DEBUG("pthread_mutex_destroy(mutex)...");
             if (!(err = pthread_mutex_destroy(mutex))) {
                 return true;
             } else {
+                CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutex_destroy(mutex)");
             }
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Lock() {
-        pthread_mutex_t* mutex = 0;
-        int err = 0;
-        if ((mutex = this->m_attachedTo)) {
-            CRONO_LOG_DEBUG("pthread_mutex_lock(mutex)...")
-            if (!(err = pthread_mutex_lock(mutex))) {
-                return true;
-            } else {
-            }
+    virtual bool lock() {
+        if (lock_success == (untimed_lock())) {
+            return true;
         }
         return false;
     }
-    virtual bool Unlock() {
+    virtual bool unlock() {
         pthread_mutex_t* mutex = 0;
         int err = 0;
-        if ((mutex = this->m_attachedTo)) {
-            CRONO_LOG_DEBUG("pthread_mutex_unlock(mutex)...")
+        if ((mutex = this->attached_to())) {
+
+            CRONO_LOG_TRACE("pthread_mutex_unlock(mutex)...");
             if (!(err = pthread_mutex_unlock(mutex))) {
                 return true;
             } else {
+                CRONO_LOG_ERROR("...failed err " << err << " = on pthread_mutex_unlock(mutex)");
             }
         }
         return false;
     }
-    virtual LockStatus TryLock() {
+    virtual lock_status try_lock() {
         pthread_mutex_t* mutex = 0;
-        if ((mutex = this->m_attachedTo)) {
+        if ((mutex = this->attached_to())) {
             int err = 0;
+
             CRONO_LOG_TRACE("pthread_mutex_trylock(mutex)...");
             if ((err =  pthread_mutex_trylock(mutex))) {
                 switch(err) {
                 case ETIMEDOUT:
-                    CRONO_LOG_TRACE("...ETIMEDOUT err = "<< err << " on pthread_mutex_trylock(mutex)...")
-                    return LockBusy;
+                    CRONO_LOG_TRACE("...ETIMEDOUT err = " << err << " on pthread_mutex_trylock(mutex)");
+                    return lock_busy;
                 case EINTR:
-                    CRONO_LOG_ERROR("...EINTR err = "<< err << " on pthread_mutex_trylock(mutex)...")
-                    return LockInterrupted;
+                    CRONO_LOG_ERROR("...EINTR err = " << err << " on pthread_mutex_trylock(mutex)");
+                    return lock_interrupted;
                 default:
-                    CRONO_LOG_ERROR("...failed err = "<< err << " on pthread_mutex_trylock(mutex)...")
-                    return LockFailed;
+                    CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutex_trylock(mutex)");
+                    return lock_failed;
                 }
             } else {
-                return LockSuccess;
+                return lock_success;
             }
         }
-        return LockFailed;
+        return lock_failed;
     }
-    virtual LockStatus TimedLock(mseconds_t milliseconds) {
+    virtual lock_status timed_lock(mseconds_t milliseconds) {
         if (0 < (milliseconds)) {
 #if defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
             pthread_mutex_t* mutex = 0;
-            if ((mutex = this->m_attachedTo)) {
+            if ((mutex = this->attached_to())) {
                 int err = 0;
                 struct timespec untilTime;
                 clock_gettime(CLOCK_REALTIME, &untilTime);
                 untilTime.tv_sec +=  mseconds_seconds(milliseconds);
                 untilTime.tv_nsec +=  mseconds_nseconds(milliseconds);
 
+                CRONO_LOG_TRACE("pthread_mutex_timedlock(mutex, &untilTime)...");
                 if ((err = pthread_mutex_timedlock(mutex, &untilTime))) {
                     switch(err) {
                     case ETIMEDOUT:
-                        return LockBusy;
+                        CRONO_LOG_TRACE("...ETIMEDOUT err = " << err << " on pthread_mutex_timedlock(mutex, &untilTime)");
+                        return lock_busy;
                     case EINTR:
-                        return LockInterrupted;
+                        CRONO_LOG_ERROR("...EINTR err = " << err << " on pthread_mutex_timedlock(mutex, &untilTime)");
+                        return lock_interrupted;
                     default:
-                        return LockFailed;
+                        CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutex_timedlock(mutex, &untilTime)");
+                        return lock_failed;
                     }
                 } else {
-                    return LockSuccess;
+                    return lock_success;
                 }
             }
 #else // defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
-            return LockInvalid;
+            return lock_invalid;
 #endif // defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
         } else {
             if (0 > (milliseconds)) {
-                return UntimedLock();
+                return untimed_lock();
             } else {
-                return TryLock();
+                return try_lock();
             }
         }
-        return LockFailed;
+        return lock_failed;
     }
-    virtual LockStatus UntimedLock() {
+    virtual lock_status untimed_lock() {
         pthread_mutex_t* mutex = 0;
-        if ((mutex = this->m_attachedTo)) {
+        if ((mutex = this->attached_to())) {
             int err = 0;
-            CRONO_LOG_DEBUG("pthread_mutex_lock(mutex)...")
+
+            CRONO_LOG_TRACE("pthread_mutex_lock(mutex)...");
             if ((err =  pthread_mutex_lock(mutex))) {
                 switch(err) {
                 case ETIMEDOUT:
-                    CRONO_LOG_ERROR("...ETIMEDOUT err = "<< err << " on pthread_mutex_lock(mutex)...")
-                    return LockBusy;
+                    CRONO_LOG_ERROR("...ETIMEDOUT err = " << err << " on pthread_mutex_lock(mutex)");
+                    return lock_busy;
                 case EINTR:
-                    CRONO_LOG_ERROR("...EINTR err = "<< err << " on pthread_mutex_lock(mutex)...")
-                    return LockInterrupted;
+                    CRONO_LOG_ERROR("...EINTR err = " << err << " on pthread_mutex_lock(mutex)");
+                    return lock_interrupted;
                 default:
-                    CRONO_LOG_ERROR("...failed err = "<< err << " on pthread_mutex_lock(mutex)...")
-                    return LockFailed;
+                    CRONO_LOG_ERROR("...failed err = " << err << " on pthread_mutex_lock(mutex)");
+                    return lock_failed;
                 }
             } else {
-                return LockSuccess;
+                return lock_success;
             }
         }
-        return LockFailed;
+        return lock_failed;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 protected:
-    pthread_mutexattr_t m_mutexattr;
-    pthread_mutex_t m_mutex;
+    pthread_mutexattr_t mutexattr_;
+    pthread_mutex_t mutex_;
 };
-typedef MutexT<> Mutex;
+typedef mutext<> mutex;
 
-} // namespace posix 
+} // namespace posix
 } // namespace mt 
 } // namespace fila 
 
-#endif // _FILA_MT_POSIX_MUTEX_HPP 
+#endif // _FILA_NADIR_MT_POSIX_MUTEX_HPP 
