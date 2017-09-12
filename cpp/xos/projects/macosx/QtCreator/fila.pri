@@ -20,6 +20,44 @@
 ########################################################################
 
 FILA_OS = macosx
+#QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++0x
+
+########################################################################
+# rostra
+ROSTRA_BLD = $${OTHER_BLD}/$${ROSTRA_PKG}/build/$${FILA_OS}/QtCreator/$${BUILD_CONFIG}
+ROSTRA_LIB = $${ROSTRA_BLD}/lib
+
+rostra_LIBS += \
+-L$${ROSTRA_LIB}/librostra \
+-lrostra \
+
+########################################################################
+# nadir
+NADIR_BLD = $${OTHER_BLD}/$${NADIR_PKG}/build/$${FILA_OS}/QtCreator/$${BUILD_CONFIG}
+NADIR_LIB = $${NADIR_BLD}/lib
+
+nadir_LIBS += \
+-L$${NADIR_LIB}/libnadir \
+-lnadir \
+
+########################################################################
+# patrona
+PATRONA_BLD = $${OTHER_BLD}/$${PATRONA_PKG}/build/$${FILA_OS}/QtCreator/$${BUILD_CONFIG}
+PATRONA_LIB = $${PATRONA_BLD}/lib
+
+patrona_LIBS += \
+-L$${PATRONA_LIB}/libpatrona \
+-lpatrona \
+
+########################################################################
+# crono
+CRONO_BLD = $${OTHER_BLD}/$${CRONO_PKG}/build/$${FILA_OS}/QtCreator/$${BUILD_CONFIG}
+CRONO_LIB = $${CRONO_BLD}/lib
+
+crono_LIBS += \
+-L$${CRONO_LIB}/libcrono \
+-lcrono \
 
 ########################################################################
 fila_INCLUDEPATH += \
@@ -28,5 +66,9 @@ fila_DEFINES += \
 
 ########################################################################
 fila_LIBS += \
+$${crono_LIBS} \
+$${patrona_LIBS} \
+$${nadir_LIBS} \
+$${rostra_LIBS} \
 -lpthread \
 -ldl \

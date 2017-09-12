@@ -59,10 +59,13 @@ $${NADIR_SRC}/xos/console/Main_main.cpp \
 test_HEADERS += \
 $${PATRONA_SRC}/xos/base/Created.hpp \
 $${PATRONA_SRC}/xos/base/Attached.hpp \
+$${PATRONA_SRC}/xos/base/Acquired.hpp \
+$${PATRONA_SRC}/xos/base/Locked.hpp \
 $${PATRONA_SRC}/xos/base/Logged.hpp \
 
 test_SOURCES += \
 $${PATRONA_SRC}/xos/base/Created.cpp \
+$${PATRONA_SRC}/xos/base/Acquired.cpp \
 $${PATRONA_SRC}/xos/base/Attached.cpp \
 $${PATRONA_SRC}/xos/base/Locked.cpp \
 $${PATRONA_SRC}/xos/base/Logged.cpp \
@@ -70,9 +73,15 @@ $${PATRONA_SRC}/xos/base/Logged.cpp \
 ########################################################################
 # fila
 test_HEADERS += \
+$${FILA_SRC}/xos/mt/os/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/apple/osx/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/apple/mach/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/Semaphore.hpp \
 $${FILA_SRC}/xos/mt/os/Mutex.hpp \
+$${FILA_SRC}/xos/mt/apple/osx/Mutex.hpp \
 $${FILA_SRC}/xos/mt/posix/Mutex.hpp \
 $${FILA_SRC}/xos/mt/Mutex.hpp \
+$${FILA_SRC}/xos/mt/os/Os.hpp \
 $${FILA_SRC}/xos/app/console/mt/hello/Main.hpp \
 $${FILA_SRC}/xos/app/console/mt/hello/MainOpt.hpp \
 $${FILA_SRC}/fila/app/console/mt/hello/Main.hpp \
@@ -87,7 +96,9 @@ $${FILA_SRC}/xos/console/mt/Locked.hpp \
 $${FILA_SRC}/xos/console/mt/Main_main.hpp \
 
 test_SOURCES += \
+$${FILA_SRC}/xos/mt/os/Semaphore.cpp \
 $${FILA_SRC}/xos/mt/os/Mutex.cpp \
+$${FILA_SRC}/xos/mt/os/Os.cpp \
 $${FILA_SRC}/xos/app/console/mt/hello/Main.cpp \
 $${FILA_SRC}/xos/app/console/mt/hello/MainOpt.cpp \
 $${FILA_SRC}/xos/console/mt/Locked.cpp \

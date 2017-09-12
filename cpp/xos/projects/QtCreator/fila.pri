@@ -20,6 +20,7 @@
 ########################################################################
 
 OTHER_PKG = ../../../../../../../..
+OTHER_BLD = ..
 
 ########################################################################
 # rostra
@@ -61,6 +62,19 @@ patrona_DEFINES += \
 patrona_LIBS += \
 
 ########################################################################
+# crono
+CRONO_PKG = $${OTHER_PKG}/crono/cpp/xos
+CRONO_PRJ = $${CRONO_PKG}
+CRONO_SRC = $${CRONO_PKG}/src
+
+crono_INCLUDEPATH += \
+$${CRONO_SRC} \
+
+crono_DEFINES += \
+
+crono_LIBS += \
+
+########################################################################
 # fila
 FILA_PKG = ../../../../..
 FILA_BLD = ../..
@@ -80,12 +94,17 @@ fila_DEFINES += RELEASE_BUILD
 
 fila_INCLUDEPATH += \
 $${FILA_SRC} \
+$${crono_INCLUDEPATH} \
 $${patrona_INCLUDEPATH} \
 $${nadir_INCLUDEPATH} \
 $${rostra_INCLUDEPATH} \
 
 fila_DEFINES += \
 BUILD_CONFIG=$${BUILD_CONFIG} \
+$${rostra_DEFINES} \
+$${nadir_DEFINES} \
+$${patrona_DEFINES} \
+$${crono_DEFINES} \
 
 fila_LIBS += \
 -L$${FILA_LIB}/libfila \
