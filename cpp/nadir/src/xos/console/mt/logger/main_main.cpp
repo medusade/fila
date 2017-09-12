@@ -13,40 +13,43 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: MainOpt.hpp
+///   File: main_main.cpp
 ///
 /// Author: $author$
-///   Date: 8/18/2017
+///   Date: 9/10/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
-#define _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#include "xos/console/mt/logger/main_main.hpp"
+#include "xos/console/locked.hpp"
+#include "xos/logger/interface.hpp"
+#include "xos/mt/os/mutex.hpp"
 
-#include "nadir/console/getopt/MainOpt.hpp"
-
-namespace fila {
+namespace xos {
 namespace console {
 namespace mt {
-namespace getopt {
+namespace logger {
 
-typedef nadir::console::getopt::MainOpt MainOptImplements;
-///////////////////////////////////////////////////////////////////////
-///  Class: MainOptT
-///////////////////////////////////////////////////////////////////////
-template <class TImplements = MainOptImplements>
-class _EXPORT_CLASS MainOptT: virtual public TImplements {
-public:
-    typedef TImplements Implements;
-    typedef typename Implements::char_t char_t;
-    typedef typename Implements::endchar_t endchar_t;
-    static const endchar_t endchar = Implements::endchar;
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-};
-typedef MainOptT<> MainOpt;
-
-} // namespace getopt
-} // namespace mt
+} // namespace logger 
+} // namespace mt 
 } // namespace console 
-} // namespace fila 
+} // namespace xos 
 
-#endif // _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+int main(int argc, char** argv, char** env) {
+    int err = 0;
+
+    XOS_ERR_LOG_DEBUG("try {...");
+    try {
+        ::xos::mt::os::logger::mutex mutex;
+        ::xos::console::locked locked(mutex);
+        ::xos::logger::base logger(locked);
+
+        XOS_LOG_DEBUG("::xos::console::main::the_main(argc, argv, env)...");
+        err = ::xos::console::main::the_main(argc, argv, env);
+        XOS_LOG_DEBUG("...err = " << err << " on ::xos::console::main::the_main(argc, argv, env)");
+    } catch(const ::xos::exception& e) {
+        XOS_ERR_LOG_ERROR("...catch(const ::xos::exception& e = \"" << e.to_chars() << "\")");
+    } // try
+    XOS_ERR_LOG_DEBUG("...} // try");
+    return err;
+}

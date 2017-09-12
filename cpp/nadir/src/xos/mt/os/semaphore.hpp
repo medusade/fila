@@ -13,40 +13,36 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.hpp
+///   File: semaphore.hpp
 ///
 /// Author: $author$
-///   Date: 8/7/2017
+///   Date: 9/10/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_OS_MUTEX_HPP
-#define _XOS_MT_OS_MUTEX_HPP
+#ifndef _XOS_MT_OS_SEMAPHORE_HPP
+#define _XOS_MT_OS_SEMAPHORE_HPP
 
-#include "xos/mt/os/Os.hpp"
-#include "xos/mt/Mutex.hpp"
+#include "xos/mt/semaphore.hpp"
+#include "xos/mt/os/os.hpp"
 
 #if defined(WINDOWS)
-// Windows
-#include "xos/mt/microsoft/windows/Mutex.hpp"
+// windows
+#include "xos/mt/microsoft/windows/semaphore.hpp"
 #elif defined(MACOSX)
-// MacOSX
-#include "xos/mt/apple/osx/Mutex.hpp"
+// macosx
+#include "xos/mt/apple/osx/semaphore.hpp"
 #else // defined(WINDOWS)
-// Unix
-#include "xos/mt/posix/Mutex.hpp"
+// unix
+#include "xos/mt/posix/semaphore.hpp"
 #endif // defined(WINDOWS)
-
 
 namespace xos {
 namespace mt {
 namespace os {
 
-typedef os::Mutex Mutex;
-namespace logger {
-typedef os::logger::Mutex Mutex;
-} // namespace logger
+typedef os::semaphore semaphore;
 
 } // namespace os
 } // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_MT_OS_MUTEX_HPP 
+#endif // _XOS_MT_OS_SEMAPHORE_HPP 

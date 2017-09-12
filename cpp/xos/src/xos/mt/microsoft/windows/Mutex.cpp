@@ -13,44 +13,19 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main_main.cpp
+///   File: Mutex.cpp
 ///
 /// Author: $author$
-///   Date: 8/7/2017
+///   Date: 9/11/2017
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/mt/Main_main.hpp"
-#include "xos/mt/os/Mutex.hpp"
 #include "xos/mt/microsoft/windows/Mutex.hpp"
-#include "xos/logger/Interface.hpp"
 
 namespace xos {
-namespace console {
 namespace mt {
+namespace microsoft {
+namespace windows {
 
+} // namespace windows 
+} // namespace microsoft 
 } // namespace mt 
-} // namespace console 
 } // namespace xos 
-
-///////////////////////////////////////////////////////////////////////
-/// Function: main
-///////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv, char** env) {
-    int err = 1;
-
-    XOS_ERR_LOG_DEBUG("try {...")
-    try {
-        ::xos::mt::os::logger::Mutex mutex;
-        ::xos::console::mt::Main::Locked locked(mutex);
-        ::xos::logger::Base logger(locked);
-        ::xos::mt::microsoft::windows::logger::Mutex mtx;
-
-        XOS_LOG_DEBUG("::xos::console::Main::TheMain(argc, argv, env)...");
-        err = ::xos::console::Main::TheMain(argc, argv, env);
-        XOS_LOG_DEBUG("...err = " << err << " on ::xos::console::Main::TheMain(argc, argv, env)");
-    } catch (const ::xos::CreateException& e) {
-        XOS_ERR_LOG_ERROR("...caught ::xos::CreateException& e = \"" << e.StatusToChars() << "\"")
-    } // try
-    XOS_ERR_LOG_DEBUG("...} // try");
-    return err;
-}
-

@@ -13,61 +13,78 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main.hpp
+///   File: Mutex.hpp
 ///
 /// Author: $author$
-///   Date: 8/7/2017
+///   Date: 9/11/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_APP_CONSOLE_MT_HELLO_MAIN_HPP
-#define _XOS_APP_CONSOLE_MT_HELLO_MAIN_HPP
+#ifndef _XOS_MT_MICROSOFT_WINDOWS_OS_MUTEX_HPP
+#define _XOS_MT_MICROSOFT_WINDOWS_OS_MUTEX_HPP
 
-#include "xos/app/console/mt/hello/MainOpt.hpp"
-#include "fila/app/console/mt/hello/Main.hpp"
+#include "xos/mt/os/Mutex.hpp"
 
 namespace xos {
-namespace app {
-namespace console {
 namespace mt {
-namespace hello {
+namespace microsoft {
+namespace windows {
+namespace os {
 
-typedef fila::app::console::mt::hello::MainImplements MainImplements;
-typedef fila::app::console::mt::hello::Main MainExtends;
 ///////////////////////////////////////////////////////////////////////
-///  Class: Main
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Main
-: virtual public MainOpt, virtual public MainImplements, public MainExtends {
+class _EXPORT_CLASS Mutex: public platform::microsoft::windows::Handle {
 public:
-    typedef MainOpt OptImplements;
-    typedef MainImplements Implements;
-    typedef MainExtends Extends;
-    typedef typename Implements::char_t char_t;
-    typedef typename Implements::endchar_t endchar_t;
-    static const endchar_t endchar = Implements::endchar;
     ///////////////////////////////////////////////////////////////////////
-    /// Constructor: Main
     ///////////////////////////////////////////////////////////////////////
-    Main() {
+    Mutex() {}
+    virtual ~Mutex() {}
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual BOOL CloseHandle() {
+        BOOL success = FALSE;
+        if ((mutex_.Destroyed())) {
+            success = TRUE;
+        }
+        return success;
     }
-    virtual ~Main() {
+    virtual BOOL ReleaseMutex() {
+        BOOL success = FALSE;
+        if ((mutex_.Unlock())) {
+            success = TRUE;
+        }
+        return success;
     }
+    virtual DWORD WaitForSingleObject(DWORD dwMilliseconds) {
+        DWORD dwStatus = WAIT_FAILED;
+        LockStatus status = ::xos::LockFailed;
+
+        if (INFINITE != dwMilliseconds) {
+            status = mutex_.TimedLock(dwMilliseconds);
+        } else {
+            status = mutex_.UntimedLock();
+        }
+        switch (status) {
+        case LockSuccess:
+            dwStatus = WAIT_OBJECT_0;
+            break;
+        case LockBusy:
+            dwStatus = WAIT_TIMEOUT;
+            break;
+        case LockInterrupted:
+            dwStatus = WAIT_ABANDONED;
+            break;
+        }
+        return dwStatus;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
 protected:
-    ///////////////////////////////////////////////////////////////////////
-    /// Function: RunHello
-    ///////////////////////////////////////////////////////////////////////
-    virtual int RunHello(int argc, char_t** argv, char_t** env) {
-        int err = 0;
-        err = Extends::RunHello(argc, argv, env);
-        return err;
-    }
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
+    mt::os::Mutex mutex_;
 };
 
-} // namespace hello 
-} // namespace mt
-} // namespace console
-} // namespace app 
+} // namespace os
+} // namespace windows 
+} // namespace microsoft 
+} // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_APP_CONSOLE_MT_HELLO_MAIN_HPP
+#endif // _XOS_MT_MICROSOFT_WINDOWS_OS_MUTEX_HPP 

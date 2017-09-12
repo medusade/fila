@@ -13,40 +13,42 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: MainOpt.hpp
+///   File: Mutex.cpp
 ///
 /// Author: $author$
-///   Date: 8/18/2017
+///   Date: 9/11/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
-#define _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#include "xos/mt/microsoft/windows/os/Mutex.hpp"
 
-#include "nadir/console/getopt/MainOpt.hpp"
-
-namespace fila {
-namespace console {
+namespace xos {
 namespace mt {
-namespace getopt {
+namespace microsoft {
+namespace windows {
+namespace os {
 
-typedef nadir::console::getopt::MainOpt MainOptImplements;
+} // namespace os 
+} // namespace windows 
+} // namespace microsoft 
+} // namespace mt 
+} // namespace xos 
+
+#if !defined(WINDOWS)
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainOptT
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = MainOptImplements>
-class _EXPORT_CLASS MainOptT: virtual public TImplements {
-public:
-    typedef TImplements Implements;
-    typedef typename Implements::char_t char_t;
-    typedef typename Implements::endchar_t endchar_t;
-    static const endchar_t endchar = Implements::endchar;
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-};
-typedef MainOptT<> MainOpt;
-
-} // namespace getopt
-} // namespace mt
-} // namespace console 
-} // namespace fila 
-
-#endif // _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+HANDLE WINAPI CreateMutex(
+  _In_opt_ LPSECURITY_ATTRIBUTES lpMutexAttributes,
+  _In_     BOOL                  bInitialOwner,
+  _In_opt_ LPCTSTR               lpName
+) {
+    try {
+        ::xos::mt::microsoft::windows::os::Mutex* mutex = 0;
+        if ((mutex = new ::xos::mt::microsoft::windows::os::Mutex)) {
+            return mutex;
+        }
+    } catch (const ::xos::CreateException e) {
+    }
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#endif // !defined(WINDOWS)

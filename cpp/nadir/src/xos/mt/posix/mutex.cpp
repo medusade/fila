@@ -13,40 +13,17 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.hpp
+///   File: mutex.cpp
 ///
 /// Author: $author$
-///   Date: 8/7/2017
+///   Date: 9/9/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_OS_MUTEX_HPP
-#define _XOS_MT_OS_MUTEX_HPP
-
-#include "xos/mt/os/Os.hpp"
-#include "xos/mt/Mutex.hpp"
-
-#if defined(WINDOWS)
-// Windows
-#include "xos/mt/microsoft/windows/Mutex.hpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "xos/mt/apple/osx/Mutex.hpp"
-#else // defined(WINDOWS)
-// Unix
-#include "xos/mt/posix/Mutex.hpp"
-#endif // defined(WINDOWS)
-
+#include "xos/mt/posix/mutex.hpp"
 
 namespace xos {
 namespace mt {
-namespace os {
+namespace posix {
 
-typedef os::Mutex Mutex;
-namespace logger {
-typedef os::logger::Mutex Mutex;
-} // namespace logger
-
-} // namespace os
+} // namespace posix 
 } // namespace mt 
 } // namespace xos 
-
-#endif // _XOS_MT_OS_MUTEX_HPP 

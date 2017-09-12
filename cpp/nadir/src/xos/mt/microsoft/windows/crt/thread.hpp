@@ -13,40 +13,32 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Mutex.hpp
+///   File: thread.hpp
 ///
 /// Author: $author$
-///   Date: 8/7/2017
+///   Date: 9/10/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_OS_MUTEX_HPP
-#define _XOS_MT_OS_MUTEX_HPP
-
-#include "xos/mt/os/Os.hpp"
-#include "xos/mt/Mutex.hpp"
-
-#if defined(WINDOWS)
-// Windows
-#include "xos/mt/microsoft/windows/Mutex.hpp"
-#elif defined(MACOSX)
-// MacOSX
-#include "xos/mt/apple/osx/Mutex.hpp"
-#else // defined(WINDOWS)
-// Unix
-#include "xos/mt/posix/Mutex.hpp"
-#endif // defined(WINDOWS)
-
+#ifndef _XOS_MT_MICROSOFT_WINDOWS_CRT_THREAD_HPP
+#define _XOS_MT_MICROSOFT_WINDOWS_CRT_THREAD_HPP
+#include "xos/mt/thread.hpp"
 
 namespace xos {
 namespace mt {
-namespace os {
+namespace microsoft {
+namespace windows {
+namespace crt {
 
-typedef os::Mutex Mutex;
-namespace logger {
-typedef os::logger::Mutex Mutex;
-} // namespace logger
 
-} // namespace os
+
+
+} // namespace crt 
+} // namespace windows 
+} // namespace microsoft 
 } // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_MT_OS_MUTEX_HPP 
+
+#endif // _XOS_MT_MICROSOFT_WINDOWS_CRT_THREAD_HPP 
+
+        
+

@@ -13,40 +13,44 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: MainOpt.hpp
+///   File: semaphore.hpp
 ///
 /// Author: $author$
-///   Date: 8/18/2017
+///   Date: 9/10/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
-#define _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#ifndef _XOS_MT_SEMAPHORE_HPP
+#define _XOS_MT_SEMAPHORE_HPP
 
-#include "nadir/console/getopt/MainOpt.hpp"
+#include "xos/base/acquired.hpp"
+#include "xos/base/created.hpp"
+#include "xos/base/logged.hpp"
 
-namespace fila {
-namespace console {
+namespace xos {
 namespace mt {
-namespace getopt {
 
-typedef nadir::console::getopt::MainOpt MainOptImplements;
+typedef logged semaphoret_logged_implements;
+typedef acquired semaphoret_acquired_implements;
+typedef create semaphoret_create_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainOptT
+///  class: semaphoret
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = MainOptImplements>
-class _EXPORT_CLASS MainOptT: virtual public TImplements {
+template
+<class TLogged_implements = semaphoret_logged_implements,
+ class TAcquired_implements = semaphoret_acquired_implements,
+ class TCreate_implements = semaphoret_create_implements>
+class _EXPORT_CLASS semaphoret
+: virtual public TAcquired_implements,
+  virtual public TLogged_implements,
+  virtual public TCreate_implements {
 public:
-    typedef TImplements Implements;
-    typedef typename Implements::char_t char_t;
-    typedef typename Implements::endchar_t endchar_t;
-    static const endchar_t endchar = Implements::endchar;
+    typedef TAcquired_implements acquired_implements;
+    typedef TLogged_implements logged_implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef MainOptT<> MainOpt;
+typedef semaphoret<> semaphore;
 
-} // namespace getopt
 } // namespace mt
-} // namespace console 
-} // namespace fila 
+} // namespace xos 
 
-#endif // _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#endif // _XOS_MT_SEMAPHORE_HPP 

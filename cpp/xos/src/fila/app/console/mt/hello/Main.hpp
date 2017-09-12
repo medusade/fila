@@ -47,6 +47,9 @@ public:
     typedef TOpt OptImplements;
     typedef TImplements Implements;
     typedef TExtends Extends;
+    typedef typename Implements::char_t char_t;
+    typedef typename Implements::endchar_t endchar_t;
+    static const endchar_t endchar = Implements::endchar;
     ///////////////////////////////////////////////////////////////////////
     /// Constructor: MainT
     ///////////////////////////////////////////////////////////////////////
@@ -58,7 +61,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////
     /// Function: Run
     ///////////////////////////////////////////////////////////////////////
-    virtual int Run(int argc, char_t**argv, char_t** env) {
+    virtual int Run(int argc, char_t** argv, char_t** env) {
         int err = 0;
         try {
             xos::Lock lock(*this);

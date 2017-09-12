@@ -13,40 +13,28 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: MainOpt.hpp
+///   File: Semaphore.cpp
 ///
 /// Author: $author$
-///   Date: 8/18/2017
+///   Date: 9/1/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
-#define _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#include "xos/mt/posix/Semaphore.hpp"
 
-#include "nadir/console/getopt/MainOpt.hpp"
-
-namespace fila {
-namespace console {
+namespace xos {
 namespace mt {
-namespace getopt {
+namespace posix {
 
-typedef nadir::console::getopt::MainOpt MainOptImplements;
+
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainOptT
+///  Class: SemaphoreT
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = MainOptImplements>
-class _EXPORT_CLASS MainOptT: virtual public TImplements {
-public:
-    typedef TImplements Implements;
-    typedef typename Implements::char_t char_t;
-    typedef typename Implements::endchar_t endchar_t;
-    static const endchar_t endchar = Implements::endchar;
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-};
-typedef MainOptT<> MainOpt;
 
-} // namespace getopt
-} // namespace mt
-} // namespace console 
-} // namespace fila 
 
-#endif // _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+} // namespace posix 
+} // namespace mt 
+} // namespace xos 
+
+
+
+        
+

@@ -13,40 +13,45 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: MainOpt.hpp
+///   File: mutex.hpp
 ///
 /// Author: $author$
-///   Date: 8/18/2017
+///   Date: 9/9/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
-#define _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#ifndef _XOS_MT_MUTEX_HPP
+#define _XOS_MT_MUTEX_HPP
 
-#include "nadir/console/getopt/MainOpt.hpp"
+#include "xos/base/locked.hpp"
+#include "xos/base/created.hpp"
+#include "xos/base/logged.hpp"
 
-namespace fila {
-namespace console {
+namespace xos {
 namespace mt {
-namespace getopt {
 
-typedef nadir::console::getopt::MainOpt MainOptImplements;
+typedef logged mutext_logged_implements;
+typedef locked mutext_locked_implements;
+typedef create mutext_create_implements;
 ///////////////////////////////////////////////////////////////////////
-///  Class: MainOptT
+///  class: mutext
 ///////////////////////////////////////////////////////////////////////
-template <class TImplements = MainOptImplements>
-class _EXPORT_CLASS MainOptT: virtual public TImplements {
+template
+<class TLogged_implements = mutext_logged_implements,
+ class TLocked_implements = mutext_locked_implements,
+ class TCreate_implements = mutext_create_implements>
+class _EXPORT_CLASS mutext
+: virtual public TLocked_implements,
+  virtual public TLogged_implements,
+  virtual public TCreate_implements {
 public:
-    typedef TImplements Implements;
-    typedef typename Implements::char_t char_t;
-    typedef typename Implements::endchar_t endchar_t;
-    static const endchar_t endchar = Implements::endchar;
+    typedef TLocked_implements locked_implements;
+    typedef TLogged_implements logged_implements;
+    typedef TCreate_implements create_implements;
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };
-typedef MainOptT<> MainOpt;
+typedef mutext<> mutex;
 
-} // namespace getopt
 } // namespace mt
-} // namespace console 
-} // namespace fila 
+} // namespace xos 
 
-#endif // _FILA_CONSOLE_MT_GETOPT_MAINOPT_HPP
+#endif // _XOS_MT_MUTEX_HPP 
