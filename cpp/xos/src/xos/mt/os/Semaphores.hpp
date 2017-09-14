@@ -13,24 +13,29 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Locked.hpp
+///   File: Semaphores.hpp
 ///
 /// Author: $author$
-///   Date: 8/11/2017
+///   Date: 9/12/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_MT_LOCKED_HPP
-#define _XOS_CONSOLE_MT_LOCKED_HPP
+#ifndef _XOS_MT_OS_SEMAPHORES_HPP
+#define _XOS_MT_OS_SEMAPHORES_HPP
 
-#include "xos/console/Locked.hpp"
+#include "xos/mt/os/Semaphore.hpp"
+#include "xos/mt/microsoft/windows/Semaphore.hpp"
+#include "xos/mt/apple/osx/Semaphore.hpp"
+#include "xos/mt/posix/Semaphore.hpp"
+#include "xos/mt/Semaphore.hpp"
 
 namespace xos {
-namespace console {
 namespace mt {
+namespace os {
 
-typedef console::Locked Locked;
-
-} // namespace mt
-} // namespace console 
+} // namespace os 
+} // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_CONSOLE_MT_LOCKED_HPP 
+#endif // _XOS_MT_OS_SEMAPHORES_HPP 
+
+        
+

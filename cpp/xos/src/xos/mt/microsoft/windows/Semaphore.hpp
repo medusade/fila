@@ -16,31 +16,21 @@
 ///   File: Semaphore.hpp
 ///
 /// Author: $author$
-///   Date: 9/1/2017
+///   Date: 9/12/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_POSIX_SEMAPHORE_HPP
-#define _XOS_MT_POSIX_SEMAPHORE_HPP
+#ifndef _XOS_MT_MICROSOFT_WINDOWS_SEMAPHORE_HPP
+#define _XOS_MT_MICROSOFT_WINDOWS_SEMAPHORE_HPP
 
 #include "xos/mt/Semaphore.hpp"
+#include "xos/base/Created.hpp"
 #include "xos/logger/Interface.hpp"
-
-#include <semaphore.h>
-#include <errno.h>
-
-#if defined(HAS_POSIX_TIMEOUTS)
-#if !defined(SEM_HAS_TIMEDWAIT)
-#define SEM_HAS_TIMEDWAIT
-#endif // !defined(SEM_HAS_TIMEDWAIT)
-#endif // defined(HAS_POSIX_TIMEOUTS)
-
-#define SEMAPHORE_PROCESS_PRIVATE 0
-#define SEMAPHORE_PROCESS_SHARED  1
 
 namespace xos {
 namespace mt {
-namespace posix {
+namespace microsoft {
+namespace windows {
 
-typedef sem_t* SemaphoreTAttachedT;
+typedef HANDLE SemaphoreTAttachedT;
 typedef mt::Semaphore SemaphoreTAttachImplements;
 typedef AttachT<SemaphoreTAttachedT, int, 0, AttachException, SemaphoreTAttachImplements> SemaphoreTAttach;
 typedef AttachedT<SemaphoreTAttachedT, int, 0, AttachException, SemaphoreTAttach> SemaphoreTAttached;
@@ -57,47 +47,54 @@ class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
+
     ///////////////////////////////////////////////////////////////////////
-    /// Constructor: SemaphoreT
     ///////////////////////////////////////////////////////////////////////
-    SemaphoreT(sem_t* attachedTo, bool isCreated)
+    SemaphoreT(HANDLE attachedTo, bool isCreated)
     : Extends(attachedTo, isCreated) {
     }
-    SemaphoreT(sem_t* attachedTo): Extends(attachedTo) {
+    SemaphoreT(HANDLE attachedTo): Extends(attachedTo) {
     }
     SemaphoreT(size_t initiallyReleased) {
-        if (!(this->Create())) {
+        if (!(this->Create(initiallyReleased))) {
             CreateException e(CreateFailed);
+            XOS_IF_LOG_ERROR("throw (e = CreateException(CreateFailed))...");
             throw (e);
         }
     }
     SemaphoreT() {
         if (!(this->Create())) {
             CreateException e(CreateFailed);
+            XOS_IF_LOG_ERROR("throw (e = CreateException(CreateFailed))...");
             throw (e);
         }
     }
     virtual ~SemaphoreT() {
         if (!(this->Destroyed())) {
+            XOS_IF_LOG_ERROR("throw (e = CreateException(DestroyFailed))...");
             CreateException e(DestroyFailed);
             throw (e);
         }
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual bool Create(size_t initiallyReleased) {
-        sem_t* detached = 0;
-        if ((detached = CreateAttached(initiallyReleased))) {
+    virtual bool Create(size_t initiallyReleased, size_t maximumReleased) {
+        HANDLE detached = 0;
+        if ((detached = CreateAttached(initiallyReleased, maximumReleased))) {
             this->SetIsCreated();
             return detached;
         }
         return false;
     }
+    virtual bool Create(size_t initiallyReleased) {
+        return Create(initiallyReleased, 0);
+    }
     virtual bool Create() {
         return Create(0);
     }
     virtual bool Destroy() {
-        sem_t* detached = 0;
+        HANDLE detached = 0;
         if ((detached = this->Detach())) {
             if ((DestroyDetached(detached))) {
                 return true;
@@ -107,44 +104,45 @@ public:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    virtual sem_t* CreateAttached(size_t initiallyReleased) {
-        sem_t* detached = 0;
+    virtual HANDLE CreateAttached(size_t initiallyReleased, size_t maximumReleased) {
+        HANDLE detached = 0;
         if ((this->Destroyed())) {
-            if ((detached = CreateDetached(m_sem, initiallyReleased))) {
+            if ((detached = CreateDetached(initiallyReleased, maximumReleased))) {
                 this->Attach(detached);
                 return detached;
             }
         }
         return 0;
     }
-    virtual sem_t* CreateDetached
-    (sem_t& sem, size_t initiallyReleased) const {
-        int pshared = SEMAPHORE_PROCESS_PRIVATE;
-        int err = 0;
+    virtual HANDLE CreateDetached(size_t initiallyReleased, size_t maximumReleased) const {
+        LONG lInitialCount = ((LONG)initiallyReleased);
+        LONG lMaximumCount = ((LONG)(maximumReleased)?(maximumReleased):(((ULONG)-1)>>1));
+        LPSECURITY_ATTRIBUTES lpSecurityAttributes = 0;
+        LPCTSTR lpName = 0;
+        HANDLE detached = 0;
 
-        XOS_LOG_DEBUG("::sem_init(&sem, pshared, initiallyReleased)...");
-        if ((!(err = ::sem_init(&sem, pshared, initiallyReleased)))) {
-            XOS_LOG_DEBUG("...::sem_init(&sem, pshared, initiallyReleased)");
-            return &sem;
+        XOS_IF_LOG_DEBUG("CreateSemaphore(lpSecurityAttributes, lInitialCount, lMaximumCount, lpName)...");
+        if ((detached = CreateSemaphore(lpSecurityAttributes, lInitialCount, lMaximumCount, lpName))) {
+            return detached;
         } else {
-            XOS_LOG_ERROR("...failed err = " << err << " on ::sem_init(&sem, pshared, initiallyReleased)");
+            DWORD dwError = GetLastError();
+            XOS_IF_LOG_ERROR("...failed dwError = " << dwError << " on CreateSemaphore(lpSecurityAttributes, lInitialCount, lMaximumCount, lpName)");
         }
         return 0;
     }
-    virtual bool DestroyDetached(sem_t* sem) const {
-        if ((sem)) {
-            int err = 0;
-
-            XOS_LOG_DEBUG("::sem_destroy(sem)...");
-            if (!(err = sem_destroy(sem))) {
-                XOS_LOG_DEBUG("...::sem_destroy(sem)");
+    virtual bool DestroyDetached(HANDLE detached) const {
+        if ((detached)) {
+            XOS_IF_LOG_DEBUG("CloseHandle(detached)...");
+            if ((CloseHandle(detached))) {
                 return true;
             } else {
-                XOS_LOG_ERROR("...failed err = " << err << " on ::sem_destroy(sem)");
+                DWORD dwError = GetLastError();
+                XOS_IF_LOG_ERROR("...failed dwError = " << dwError << " on CloseHandle(detached)");
             }
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual bool Acquire() {
@@ -154,112 +152,90 @@ public:
         return false;
     }
     virtual bool Release() {
-        sem_t* sem = 0;
-
-        if ((sem = this->m_attachedTo)) {
-            int err = 0;
-            
-            XOS_LOG_DEBUG("::sem_post(sem)...");
-            if (!(err = ::sem_post(sem))) {
-                XOS_LOG_DEBUG("...::sem_post(sem)");
-                return true;
-            } else {
-                XOS_LOG_ERROR("...failed errno = " << errno << " ::on sem_post(sem)");
-            }
+        if (0 < (Release(1))) {
+            return true;
         }
         return false;
     }
-    virtual AcquireStatus TryAcquire() {
-        sem_t* sem = 0;
-        if ((sem = this->m_attachedTo)) {
-            int err = 0;
+    virtual ssize_t Release(size_t count) {
+        HANDLE detached = 0;
+        if ((detached = this->m_attachedTo)) {
+            LONG lReleaseCount = ((LONG)count);
+            LONG lPreviousCount = 0;
 
-            XOS_LOG_TRACE("::sem_trywait(sem)...");
-            if (!(err = sem_trywait(sem))) {
-                XOS_LOG_DEBUG("...::sem_trywait(sem)");
-                return AcquireSuccess;
+            XOS_IF_LOG_DEBUG("ReleaseSemaphore(detached, lReleaseCount, &lPreviousCount)...");
+            if ((ReleaseSemaphore(detached, lReleaseCount, &lPreviousCount))) {
+                count = lPreviousCount + lReleaseCount;
+                XOS_IF_LOG_DEBUG("...count = " << count << " on ReleaseSemaphore(detached, lReleaseCount, &lPreviousCount)");
+                return count;
             } else {
-                switch (errno) {
-                case ETIMEDOUT:
-                    XOS_LOG_TRACE("...ETIMEDOUT errno = " << errno << " on ::sem_trywait(sem)");
-                    return AcquireBusy;
-                case EINTR:
-                    XOS_LOG_ERROR("...EINTR errno = " << errno << " on ::sem_trywait(sem)");
-                    return AcquireInterrupted;
-                default:
-                    XOS_LOG_ERROR("...failed errno = " << errno << " on ::sem_trywait(sem)");
-                }
+                DWORD dwError = GetLastError();
+                XOS_IF_LOG_ERROR("...failed dwError = " << dwError << " on ReleaseSemaphore(detached, lReleaseCount, &lPreviousCount)");
             }
         }
-        return AcquireFailed;
+        return -1;
+    }
+    virtual AcquireStatus TryAcquire() {
+        return TimedAcquire(0);
     }
     virtual AcquireStatus TimedAcquire(mseconds_t milliseconds) {
         if (0 > (milliseconds)) {
             return UntimedAcquire();
         } else {
-#if defined(SEM_HAS_TIMEDWAIT)
-            sem_t* sem = 0;
-
-            if ((sem = this->m_attachedTo)) {
-                int err = 0;
-                struct timespec untilTime;
-
-                clock_gettime(CLOCK_REALTIME, &untilTime);
-                untilTime.tv_sec +=  mseconds_seconds(milliseconds);
-                untilTime.tv_nsec +=  mseconds_nseconds(milliseconds);
-
-                XOS_LOG_TRACE("::sem_timedwait(sem, &untilTime)...");
-                if (!(err = ::sem_timedwait(sem, &untilTime))) {
-                    XOS_LOG_DEBUG("...::sem_timedwait(sem, &untilTime)");
-                    return AcquireSuccess;
-                } else {
-                    switch (errno) {
-                    case ETIMEDOUT:
-                        XOS_LOG_TRACE("...ETIMEDOUT errno = " << errno << " on ::sem_timedwait(sem, &untilTime)");
+            HANDLE detached = 0;
+            if ((detached = this->m_attachedTo)) {
+                DWORD dwMilliseconds = (DWORD)(milliseconds);
+                DWORD dwResult = 0;
+                XOS_IF_LOG_TRACE("WaitForSingleObject(detached, dwMilliseconds)...");
+                if (WAIT_OBJECT_0 != (dwResult = WaitForSingleObject(detached, dwMilliseconds))) {
+                    switch(dwResult) {
+                    case WAIT_TIMEOUT:
+                        XOS_IF_LOG_TRACE("...WAIT_TIMEOUT dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
                         return AcquireBusy;
-                    case EINTR:
-                        XOS_LOG_ERROR("...EINTR errno = " << errno << " on ::sem_timedwait(sem, &untilTime)");
+                    case WAIT_ABANDONED:
+                        XOS_IF_LOG_ERROR("...WAIT_ABANDONED dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
                         return AcquireInterrupted;
                     default:
-                        XOS_LOG_ERROR("...failed errno = " << errno << " on ::sem_timedwait(sem, &untilTime)");
+                        XOS_IF_LOG_ERROR("...failed dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
+                        return AcquireFailed;
                     }
+                } else {
+                    XOS_IF_LOG_DEBUG("...WaitForSingleObject(detached, dwMilliseconds)");
+                    return AcquireSuccess;
                 }
             }
-#else // defined(SEM_HAS_TIMEDWAIT)
-            XOS_LOG_ERROR("...return AcquireInvalid");
-            return AcquireInvalid;
-#endif // defined(SEM_HAS_TIMEDWAIT)
         }
         return AcquireFailed;
     }
     virtual AcquireStatus UntimedAcquire() {
-        sem_t* sem = 0;
-        if ((sem = this->m_attachedTo)) {
-            int err = 0;
+        HANDLE detached = 0;
+        if ((detached = this->m_attachedTo)) {
+            DWORD dwMilliseconds = INFINITE;
+            DWORD dwResult = 0;
 
-            XOS_LOG_DEBUG("::sem_wait(sem)...");
-            if (!(err = sem_wait(sem))) {
-                XOS_LOG_DEBUG("...::sem_wait(sem)");
-                return AcquireSuccess;
-            } else {
-                switch (errno) {
-                case ETIMEDOUT:
-                    XOS_LOG_ERROR("...ETIMEDOUT errno = " << errno << " on ::sem_wait(sem)");
+            XOS_IF_LOG_DEBUG("WaitForSingleObject(detached, dwMilliseconds)...");
+            if (WAIT_OBJECT_0 != (dwResult = WaitForSingleObject(detached, dwMilliseconds))) {
+                switch(dwResult) {
+                case WAIT_TIMEOUT:
+                    XOS_IF_LOG_ERROR("...WAIT_TIMEOUT dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
                     return AcquireBusy;
-                case EINTR:
-                    XOS_LOG_ERROR("...EINTR errno = " << errno << " on ::sem_wait(sem)");
+                case WAIT_ABANDONED:
+                    XOS_IF_LOG_ERROR("...WAIT_ABANDONED dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
                     return AcquireInterrupted;
                 default:
-                    XOS_LOG_ERROR("...failed errno = " << errno << " on ::sem_wait(sem)");
+                    XOS_IF_LOG_ERROR("...failed dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
+                    return AcquireFailed;
                 }
+            } else {
+                XOS_IF_LOG_DEBUG("...WaitForSingleObject(detached, dwMilliseconds)");
+                return AcquireSuccess;
             }
         }
         return AcquireFailed;
     }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-protected:
-    sem_t m_sem;
 };
 typedef SemaphoreT<> Semaphore;
 
@@ -276,11 +252,9 @@ typedef SemaphoreT<SemaphoreTImplements, SemaphoreTExtends> Semaphore;
 
 } // namespace logger
 
-} // namespace posix
+} // namespace windows
+} // namespace microsoft 
 } // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_MT_POSIX_SEMAPHORE_HPP 
-
-        
-
+#endif // _XOS_MT_MICROSOFT_WINDOWS_SEMAPHORE_HPP 

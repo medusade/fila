@@ -13,21 +13,51 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Semaphore.cpp
+///   File: Thread.cpp
 ///
 /// Author: $author$
-///   Date: 9/1/2017
+///   Date: 9/12/2017
 ///////////////////////////////////////////////////////////////////////
-#include "xos/mt/posix/Semaphore.hpp"
+#include "xos/mt/microsoft/windows/crt/os/Thread.hpp"
 
 namespace xos {
 namespace mt {
-namespace posix {
+namespace microsoft {
+namespace windows {
+namespace crt {
+namespace os {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
-///////////////////////////////////////////////////////////////////////
-
-} // namespace posix 
+} // namespace os 
+} // namespace crt 
+} // namespace windows 
+} // namespace microsoft 
 } // namespace mt 
 } // namespace xos 
+
+#if !defined(WINDOWS)
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+uintptr_t _beginthreadex(
+   void *security,
+   unsigned stack_size,
+   unsigned ( __stdcall *start_address )( void * ),
+   void *arglist,
+   unsigned initflag,
+   unsigned *thrdaddr
+) {
+    bool initiallySuspended = false;
+    try {
+        ::xos::mt::microsoft::windows::crt::os::Thread* handle = 0;
+        if ((handle = new ::xos::mt::microsoft::windows::crt::os::Thread
+             (initiallySuspended, start_address, arglist))) {
+            return (uintptr_t)handle;
+        }
+    } catch (const ::xos::CreateException e) {
+    }
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#else // !defined(WINDOWS)
+#endif // !defined(WINDOWS)
+

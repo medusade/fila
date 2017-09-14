@@ -29,6 +29,9 @@ namespace apple {
 namespace osx {
 
 typedef mach::Semaphore Semaphore;
+namespace logger {
+typedef mach::logger::Semaphore Semaphore;
+} // namespace logger
 
 } // namespace osx 
 } // namespace apple 
@@ -36,6 +39,3 @@ typedef mach::Semaphore Semaphore;
 } // namespace xos 
 
 #endif // _XOS_MT_APPLE_OSX_SEMAPHORE_HPP 
-
-        
-

@@ -230,6 +230,19 @@ protected:
 };
 typedef SemaphoreT<> Semaphore;
 
+namespace logger {
+
+typedef LoggedT<false> SemaphoreTLogged;
+typedef mt::SemaphoreT<SemaphoreTLogged> SemaphoreTAttachImplements;
+typedef AttachT<SemaphoreTAttachedT, int, 0, AttachException, SemaphoreTAttachImplements> SemaphoreTAttach;
+typedef AttachedT<SemaphoreTAttachedT, int, 0, AttachException, SemaphoreTAttach> SemaphoreTAttached;
+typedef CreatedT<SemaphoreTAttachedT, int, 0, CreateException, SemaphoreTAttach, SemaphoreTAttached> SemaphoreTCreated;
+typedef SemaphoreTAttach SemaphoreTImplements;
+typedef SemaphoreTCreated SemaphoreTExtends;
+typedef SemaphoreT<SemaphoreTImplements, SemaphoreTExtends> Semaphore;
+
+} // namespace logger
+
 } // namespace mach
 } // namespace apple 
 } // namespace mt 

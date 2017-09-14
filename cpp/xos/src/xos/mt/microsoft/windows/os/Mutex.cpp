@@ -41,9 +41,9 @@ HANDLE WINAPI CreateMutex(
   _In_opt_ LPCTSTR               lpName
 ) {
     try {
-        ::xos::mt::microsoft::windows::os::Mutex* mutex = 0;
-        if ((mutex = new ::xos::mt::microsoft::windows::os::Mutex)) {
-            return mutex;
+        ::xos::mt::microsoft::windows::os::Mutex* handle = 0;
+        if ((handle = new ::xos::mt::microsoft::windows::os::Mutex)) {
+            return handle;
         }
     } catch (const ::xos::CreateException e) {
     }

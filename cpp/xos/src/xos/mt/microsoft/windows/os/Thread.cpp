@@ -13,43 +13,48 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Main_main.cpp
+///   File: Thread.cpp
 ///
 /// Author: $author$
-///   Date: 8/7/2017
+///   Date: 9/12/2017
 ///////////////////////////////////////////////////////////////////////
-#include "xos/console/mt/Main_main.hpp"
-#include "xos/console/Locked.hpp"
-#include "xos/mt/os/Mutex.hpp"
-#include "xos/logger/Interface.hpp"
+#include "xos/mt/microsoft/windows/os/Thread.hpp"
 
 namespace xos {
-namespace console {
 namespace mt {
+namespace microsoft {
+namespace windows {
+namespace os {
 
+} // namespace os 
+} // namespace windows 
+} // namespace microsoft 
 } // namespace mt 
-} // namespace console 
 } // namespace xos 
 
+#if !defined(WINDOWS)
 ///////////////////////////////////////////////////////////////////////
-/// Function: main
 ///////////////////////////////////////////////////////////////////////
-int main(int argc, char** argv, char** env) {
-    int err = 1;
-
-    XOS_ERR_LOG_DEBUG("try {...")
+HANDLE WINAPI CreateThread(
+  _In_opt_  LPSECURITY_ATTRIBUTES  lpThreadAttributes,
+  _In_      SIZE_T                 dwStackSize,
+  _In_      LPTHREAD_START_ROUTINE lpStartAddress,
+  _In_opt_  LPVOID                 lpParameter,
+  _In_      DWORD                  dwCreationFlags,
+  _Out_opt_ LPDWORD                lpThreadId
+) {
+    bool initiallySuspended = false;
     try {
-        ::xos::mt::os::logger::Mutex mutex;
-        ::xos::console::Locked locked(mutex);
-        ::xos::logger::Base logger(locked);
-
-        XOS_LOG_DEBUG("::xos::console::Main::TheMain(argc, argv, env)...");
-        err = ::xos::console::Main::TheMain(argc, argv, env);
-        XOS_LOG_DEBUG("...err = " << err << " on ::xos::console::Main::TheMain(argc, argv, env)");
-    } catch (const ::xos::CreateException& e) {
-        XOS_ERR_LOG_ERROR("...caught ::xos::CreateException& e = \"" << e.StatusToChars() << "\"")
-    } // try
-    XOS_ERR_LOG_DEBUG("...} // try");
-    return err;
+        ::xos::mt::microsoft::windows::os::Thread* handle = 0;
+        if ((handle = new ::xos::mt::microsoft::windows::os::Thread
+             (initiallySuspended, lpStartAddress, lpParameter))) {
+            return handle;
+        }
+    } catch (const ::xos::CreateException e) {
+    }
+    return 0;
 }
-
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#else // !defined(WINDOWS)
+#endif // !defined(WINDOWS)

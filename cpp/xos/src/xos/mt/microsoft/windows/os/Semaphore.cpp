@@ -16,18 +16,40 @@
 ///   File: Semaphore.cpp
 ///
 /// Author: $author$
-///   Date: 9/1/2017
+///   Date: 9/12/2017
 ///////////////////////////////////////////////////////////////////////
-#include "xos/mt/posix/Semaphore.hpp"
+#include "xos/mt/microsoft/windows/os/Semaphore.hpp"
 
 namespace xos {
 namespace mt {
-namespace posix {
+namespace microsoft {
+namespace windows {
+namespace os {
 
-///////////////////////////////////////////////////////////////////////
-///  Class: SemaphoreT
-///////////////////////////////////////////////////////////////////////
-
-} // namespace posix 
+} // namespace os 
+} // namespace windows 
+} // namespace microsoft 
 } // namespace mt 
 } // namespace xos 
+
+#if !defined(WINDOWS)
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+HANDLE WINAPI CreateSemaphore(
+  _In_opt_ LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
+  _In_     LONG                  lInitialCount,
+  _In_     LONG                  lMaximumCount,
+  _In_opt_ LPCTSTR               lpName
+) {
+    try {
+        ::xos::mt::microsoft::windows::os::Semaphore* handle = 0;
+        if ((handle = new ::xos::mt::microsoft::windows::os::Semaphore)) {
+            return handle;
+        }
+    } catch (const ::xos::CreateException e) {
+    }
+    return 0;
+}
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+#endif // !defined(WINDOWS)

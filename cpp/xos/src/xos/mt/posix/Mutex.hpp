@@ -28,11 +28,11 @@
 #include <time.h>
 #include <errno.h>
 
-#if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0)
+#if defined(HAS_POSIX_TIMEOUTS)
 #if !defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
 #define PTHREAD_MUTEX_HAS_TIMEDLOCK
 #endif // !defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
-#endif // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0)
+#endif // defined(HAS_POSIX_TIMEOUTS)
 
 #if !defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
 #if !defined(CLOCK_REALTIME)
@@ -44,11 +44,11 @@ inline int clock_gettime
         memset(res, 0, sizeof(struct timespec));
         return 0; }
     return 1; }
+#else // !defined(CLOCK_REALTIME)
+#endif // !defined(CLOCK_REALTIME)
 inline int pthread_mutex_timedlock
 (pthread_mutex_t *mutex, const struct timespec *abs_timeout) {
     return 1; }
-#else // !defined(CLOCK_REALTIME)
-#endif // !defined(CLOCK_REALTIME)
 #define PTHREAD_MUTEX_HAS_TIMEDLOCK
 #else // !defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
 #endif // !defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
@@ -292,6 +292,7 @@ protected:
 typedef MutexT<> Mutex;
 
 namespace logger {
+
 typedef LoggedT<false> MutexTLogged;
 typedef mt::MutexT<MutexTLogged> MutexTAttachImplements;
 typedef AttachT<MutexTAttachedT, int, 0, AttachException, MutexTAttachImplements> MutexTAttach;
@@ -300,6 +301,7 @@ typedef CreatedT<MutexTAttachedT, int, 0, CreateException, MutexTAttach, MutexTA
 typedef MutexTAttach MutexTImplements;
 typedef MutexTCreated MutexTExtends;
 typedef MutexT<MutexTImplements, MutexTExtends> Mutex;
+
 } // namespace logger
 
 } // namespace posix

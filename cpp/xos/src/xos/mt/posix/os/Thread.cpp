@@ -13,24 +13,20 @@
 /// or otherwise) arising in any way out of the use of this software, 
 /// even if advised of the possibility of such damage.
 ///
-///   File: Locked.hpp
+///   File: Thread.cpp
 ///
 /// Author: $author$
-///   Date: 8/11/2017
+///   Date: 9/13/2017
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_CONSOLE_MT_LOCKED_HPP
-#define _XOS_CONSOLE_MT_LOCKED_HPP
-
-#include "xos/console/Locked.hpp"
+#include "xos/mt/posix/os/Thread.hpp"
 
 namespace xos {
-namespace console {
 namespace mt {
+namespace posix {
+namespace os {
 
-typedef console::Locked Locked;
-
-} // namespace mt
-} // namespace console 
+} // namespace os 
+} // namespace posix 
+} // namespace mt 
 } // namespace xos 
 
-#endif // _XOS_CONSOLE_MT_LOCKED_HPP 
