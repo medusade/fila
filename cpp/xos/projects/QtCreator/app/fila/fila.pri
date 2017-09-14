@@ -34,22 +34,70 @@ $${fila_DEFINES} \
 # rostra
 fila_exe_HEADERS += \
 $${ROSTRA_SRC}/xos/platform/platform.hpp \
+$${ROSTRA_SRC}/xos/platform/platform_windows.hpp \
+$${ROSTRA_SRC}/xos/platform/platform_unix.hpp \
+$${ROSTRA_SRC}/xos/platform/platform_unix.h \
 
 fila_exe_SOURCES += \
 $${ROSTRA_SRC}/xos/platform/platform.cpp \
 
 ########################################################################
+# nadir
+fila_exe_HEADERS += \
+$${NADIR_SRC}/xos/console/Locked.hpp \
+
+fila_exe_SOURCES += \
+$${NADIR_SRC}/xos/console/Locked.cpp \
+
+########################################################################
+# patrona
+fila_exe_HEADERS += \
+$${PATRONA_SRC}/xos/base/Ran.hpp \
+$${PATRONA_SRC}/xos/base/Joined.hpp \
+$${PATRONA_SRC}/xos/base/Suspended.hpp \
+$${PATRONA_SRC}/xos/base/Locked.hpp \
+
+fila_exe_SOURCES += \
+$${PATRONA_SRC}/xos/base/Ran.cpp \
+$${PATRONA_SRC}/xos/base/Joined.cpp \
+$${PATRONA_SRC}/xos/base/Suspended.cpp \
+
+########################################################################
 # fila
 fila_exe_HEADERS += \
-$${FILA_SRC}/xos/mt/microsoft/windows/os/Mutex.hpp \
-$${FILA_SRC}/xos/mt/microsoft/windows/Mutex.hpp \
+$${FILA_SRC}/xos/mt/os/Threads.hpp \
+$${FILA_SRC}/xos/mt/os/Thread.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/crt/Thread.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/crt/os/Thread.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/Thread.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/os/Thread.hpp \
+$${FILA_SRC}/xos/mt/apple/osx/Thread.hpp \
+$${FILA_SRC}/xos/mt/posix/Thread.hpp \
+$${FILA_SRC}/xos/mt/posix/os/Thread.hpp \
+$${FILA_SRC}/xos/mt/Thread.hpp \
+\
+$${FILA_SRC}/xos/mt/os/Semaphores.hpp \
+$${FILA_SRC}/xos/mt/os/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/os/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/apple/osx/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/apple/mach/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/posix/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/posix/os/Semaphore.hpp \
+$${FILA_SRC}/xos/mt/Semaphore.hpp \
+\
+$${FILA_SRC}/xos/mt/os/Mutexes.hpp \
 $${FILA_SRC}/xos/mt/os/Mutex.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/Mutex.hpp \
+$${FILA_SRC}/xos/mt/microsoft/windows/os/Mutex.hpp \
 $${FILA_SRC}/xos/mt/apple/osx/Mutex.hpp \
 $${FILA_SRC}/xos/mt/posix/Mutex.hpp \
 $${FILA_SRC}/xos/mt/Mutex.hpp \
 
 fila_exe_SOURCES += \
-$${FILA_SRC}/xos/mt/microsoft/windows/os/Mutex.cpp \
+$${FILA_SRC}/xos/mt/os/Threads.cpp \
+$${FILA_SRC}/xos/mt/os/Semaphores.cpp \
+$${FILA_SRC}/xos/mt/os/Mutexes.cpp \
 
 ########################################################################
 # fila
