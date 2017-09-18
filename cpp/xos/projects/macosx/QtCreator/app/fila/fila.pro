@@ -20,12 +20,12 @@
 #
 # QtCreator .pro file for fila executable fila
 ########################################################################
+include(../../../../../build/QtCreator/fila.pri)
 include(../../../../QtCreator/fila.pri)
 include(../../fila.pri)
 include(../../../../QtCreator/app/fila/fila.pri)
 
 TARGET = $${fila_exe_TARGET}
-
 
 ########################################################################
 INCLUDEPATH += \
@@ -44,5 +44,3 @@ $${fila_exe_SOURCES} \
 ########################################################################
 LIBS += \
 $${fila_exe_LIBS} \
-
-

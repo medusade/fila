@@ -17,6 +17,8 @@
 #
 # Author: $author$
 #   Date: 8/6/2017
+#
+# QtCreator .pri file for fila
 ########################################################################
 
 OTHER_PKG = ../../../../../../../..
@@ -98,6 +100,7 @@ $${crono_INCLUDEPATH} \
 $${patrona_INCLUDEPATH} \
 $${nadir_INCLUDEPATH} \
 $${rostra_INCLUDEPATH} \
+$${build_fila_INCLUDEPATH} \
 
 fila_DEFINES += \
 BUILD_CONFIG=$${BUILD_CONFIG} \
@@ -105,6 +108,7 @@ $${rostra_DEFINES} \
 $${nadir_DEFINES} \
 $${patrona_DEFINES} \
 $${crono_DEFINES} \
+$${build_fila_DEFINES} \
 
 fila_LIBS += \
 -L$${FILA_LIB}/libfila \

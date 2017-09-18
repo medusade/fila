@@ -29,6 +29,7 @@ $${fila_INCLUDEPATH} \
 
 fila_exe_DEFINES += \
 $${fila_DEFINES} \
+XOS_APP_CONSOLE_FILA_THE_MAIN \
 
 ########################################################################
 # rostra
@@ -102,16 +103,16 @@ $${FILA_SRC}/xos/mt/os/Mutexes.cpp \
 ########################################################################
 # fila
 fila_exe_HEADERS += \
-$${FILA_SRC}/xos/app/console/mt/hello/Main.hpp \
+$${FILA_SRC}/xos/app/console/fila/Main.hpp \
+$${FILA_SRC}/xos/app/console/fila/MainOpt.hpp \
 $${FILA_SRC}/xos/console/mt/Main_main.hpp \
 
 fila_exe_SOURCES += \
-$${FILA_SRC}/xos/app/console/mt/hello/Main.cpp \
+$${FILA_SRC}/xos/app/console/fila/Main.cpp \
+$${FILA_SRC}/xos/app/console/fila/MainOpt.cpp \
 $${FILA_SRC}/xos/console/mt/Main_main.cpp \
 
 ########################################################################
 fila_exe_LIBS += \
 $${fila_LIBS} \
-
-
 

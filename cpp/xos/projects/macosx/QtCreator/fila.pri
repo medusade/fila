@@ -17,6 +17,8 @@
 #
 # Author: $author$
 #   Date: 8/6/2017
+#
+# macosx QtCreator .pri file for fila
 ########################################################################
 
 FILA_OS = macosx
@@ -70,5 +72,6 @@ $${crono_LIBS} \
 $${patrona_LIBS} \
 $${nadir_LIBS} \
 $${rostra_LIBS} \
+$${build_fila_LIBS} \
 -lpthread \
 -ldl \
