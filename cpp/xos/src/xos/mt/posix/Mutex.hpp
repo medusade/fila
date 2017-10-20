@@ -252,11 +252,12 @@ public:
             return LockInvalid;
 #endif // defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
         } else {
-            if (0 > (milliseconds)) {
+            /*if (0 > (milliseconds)) {
                 return UntimedLock();
             } else {
                 return TryLock();
-            }
+            }*/
+            return TryLock();
         }
         return LockFailed;
     }
