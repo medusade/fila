@@ -16,7 +16,7 @@
 #   File: Makedefines
 #
 # Author: $author$
-#   Date: 8/31/2017
+#   Date: 10/10/2017
 #
 # generic Gcc Makedefines
 ########################################################################
@@ -56,7 +56,8 @@ COMPILER_PATH =
 COMPILER_PREFIX =
 
 DEFINES = \
-$(DBGFLAGS)
+$(DBGFLAGS) \
+$(BUILD_DEFINE) \
 
 INCLUDES = \
 -I$(PKG)/$(SRC) \

@@ -18,6 +18,7 @@
 # Author: $author$
 #   Date: 8/5/2017
 ########################################################################
+include(../../../../../build/QtCreator/fila.pri)
 include(../../../../QtCreator/fila.pri)
 include(../../fila.pri)
 include(../../../../QtCreator/lib/libfila/libfila.pri)

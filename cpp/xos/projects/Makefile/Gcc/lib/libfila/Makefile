@@ -16,7 +16,7 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 9/1/2017
+#   Date: 10/10/2017
 #
 # generic Gcc Makefile for fila Library libfila
 ########################################################################
@@ -77,7 +77,9 @@ ${fila_USRLIBDIRS} \
 # Library .cpp sources
 #
 libfila_LIB_CPP_SOURCES += \
-${FILA_SRC}/xos/mt/Mutex.cpp \
+${FILA_SRC}/xos/mt/os/Threads.cpp \
+${FILA_SRC}/xos/mt/os/Semaphores.cpp \
+${FILA_SRC}/xos/mt/os/Mutexes.cpp \
 
 #
 # Library .m sources

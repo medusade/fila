@@ -69,9 +69,7 @@ fila_DEFINES += \
 ########################################################################
 fila_LIBS += \
 $${crono_LIBS} \
-$${patrona_LIBS} \
 $${nadir_LIBS} \
-$${rostra_LIBS} \
 $${build_fila_LIBS} \
 -lpthread \
 -ldl \

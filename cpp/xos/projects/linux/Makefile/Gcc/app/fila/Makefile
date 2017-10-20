@@ -16,11 +16,10 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 9/1/2017
+#   Date: 10/10/2017
 #
-# Linux Gcc Makefile for fila Executable fila_exe
+# Linux Gcc Makefile for fila Executable fila
 ########################################################################
-
 
 OS = linux
 PKG = ../../../../../..
@@ -46,37 +45,37 @@ EXETARGET = ${fila_exe_EXETARGET}
 #
 # user defines
 #
-USRDEFINES = \
+USRDEFINES += \
 ${fila_exe_USRDEFINES}
 
 #
 # user includes
 #
-USRINCLUDES = \
+USRINCLUDES += \
 ${fila_exe_USRINCLUDES}
 
 #
 # user libdirs
 #
-USRLIBDIRS = \
+USRLIBDIRS += \
 ${fila_exe_USRLIBDIRS}
 
 #
 # user c++ flags
 #
-USRCXXFLAGS = \
+USRCXXFLAGS += \
 ${fila_exe_USRCXXFLAGS}
 
 #
 # user c flags
 #
-USRCFLAGS = \
+USRCFLAGS += \
 ${fila_exe_USRCFLAGS}
 
 #
 # user ld flags
 #
-USRLDFLAGS = \
+USRLDFLAGS += \
 ${fila_exe_USRLDFLAGS}
 
 ########################################################################
@@ -84,36 +83,38 @@ ${fila_exe_USRLDFLAGS}
 #
 # Executable C sources
 #
-EXE_C_SOURCES = \
+EXE_C_SOURCES += \
 ${fila_exe_EXE_C_SOURCES}
 
 #
 # Executable C++ .cc sources
 #
-EXE_CC_SOURCES = \
+EXE_CC_SOURCES += \
 ${fila_exe_EXE_CC_SOURCES}
 
 #
 # Executable C++ .cxx sources
 #
-EXE_CXX_SOURCES = \
+EXE_CXX_SOURCES += \
 ${fila_exe_EXE_CXX_SOURCES}
 
 #
 # Executable C++ .cpp sources
 #
-EXE_CPP_SOURCES = \
+EXE_CPP_SOURCES += \
 ${fila_exe_EXE_CPP_SOURCES}
 
 #
 # Executable Objective C .m sources
 #
-EXE_M_SOURCES = \
+EXE_M_SOURCES += \
+${fila_exe_EXE_M_SOURCES}
 
 #
 # Executable Objective C++ .mm sources
 #
-EXE_MM_SOURCES = \
+EXE_MM_SOURCES += \
+${fila_exe_EXE_MM_SOURCES}
 
 ########################################################################
 
@@ -128,18 +129,18 @@ ${fila_exe_LIBS}
 #
 # Executable depends
 #
-#EXEDEP = \
+#EXEDEP += \
 #$(PKG)/$(BLD)/libsomelib \
 #
-EXEDEP = \
+EXEDEP += \
 
 #
 # Executable depend dirs
 #
-#EXEDEP_DIRS = \
+#EXEDEP_DIRS += \
 #../libsomelib
 #
-EXEDEP_DIRS = \
+EXEDEP_DIRS += \
 
 include $(PKG)/$(MAK)/Makerules
 

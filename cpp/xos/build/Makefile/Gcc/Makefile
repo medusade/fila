@@ -16,7 +16,7 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 8/31/2017
+#   Date: 10/10/2017
 #
 # build Gcc Makefile for fila
 ########################################################################
@@ -49,30 +49,64 @@ build_nadir_LIBS += \
 
 
 ########################################################################
+# patrona
+build_patrona_USRDEFINES += \
+
+build_patrona_USRINCLUDES += \
+
+build_patrona_USRCXXFLAGS += \
+
+build_patrona_USRLIBDIRS += \
+
+build_patrona_LIBS += \
+
+
+########################################################################
+# crono
+build_crono_USRDEFINES += \
+
+build_crono_USRINCLUDES += \
+
+build_crono_USRCXXFLAGS += \
+
+build_crono_USRLIBDIRS += \
+
+build_crono_LIBS += \
+
+
+########################################################################
 # fila
 build_fila_USRDEFINES += \
 ${build_rostra_USRDEFINES} \
 ${build_nadir_USRDEFINES} \
+${build_patrona_USRDEFINES} \
+${build_crono_USRDEFINES} \
 
 
 build_fila_USRINCLUDES += \
-${build_rostra_USRINCLUDES} \
+${build_crono_USRINCLUDES} \
+${build_patrona_USRINCLUDES} \
 ${build_nadir_USRINCLUDES} \
+${build_rostra_USRINCLUDES} \
 
 
 build_fila_USRCXXFLAGS += \
 ${build_rostra_USRCXXFLAGS} \
 ${build_nadir_USRCXXFLAGS} \
+${build_patrona_USRCXXFLAGS} \
+${build_crono_USRCXXFLAGS} \
 
 
 build_fila_USRLIBDIRS += \
-${build_rostra_USRLIBDIRS} \
+${build_crono_USRLIBDIRS} \
+${build_patrona_USRLIBDIRS} \
 ${build_nadir_USRLIBDIRS} \
+${build_rostra_USRLIBDIRS} \
 
 
 build_fila_LIBS += \
-${build_rostra_LIBS} \
+${build_crono_LIBS} \
+${build_patrona_LIBS} \
 ${build_nadir_LIBS} \
-
-
+${build_rostra_LIBS} \
 

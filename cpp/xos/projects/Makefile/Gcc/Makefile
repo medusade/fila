@@ -16,7 +16,7 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 8/31/2017
+#   Date: 10/10/2017
 #
 # generic Gcc Makefile for fila
 ########################################################################
@@ -37,6 +37,14 @@ ROSTRA_LIB = ${ROSTRA_BLD}/lib
 ROSTRA_BIN = ${ROSTRA_BLD}/bin
 
 ########################################################################
+# nadir
+NADIR_PKG = ${FILA_PKG}/../../../nadir/cpp/xos
+NADIR_SRC = ${NADIR_PKG}/src
+NADIR_BLD = ${NADIR_PKG}/${BLD}/${BUILD_TYPE}
+NADIR_LIB = ${NADIR_BLD}/lib
+NADIR_BIN = ${NADIR_BLD}/bin
+
+########################################################################
 # patrona
 PATRONA_PKG = ${FILA_PKG}/../../../patrona/cpp/xos
 PATRONA_SRC = ${PATRONA_PKG}/src
@@ -45,12 +53,12 @@ PATRONA_LIB = ${PATRONA_BLD}/lib
 PATRONA_BIN = ${PATRONA_BLD}/bin
 
 ########################################################################
-# nadir
-NADIR_PKG = ${FILA_PKG}/../../../nadir/cpp/xos
-NADIR_SRC = ${NADIR_PKG}/src
-NADIR_BLD = ${NADIR_PKG}/${BLD}/${BUILD_TYPE}
-NADIR_LIB = ${NADIR_BLD}/lib
-NADIR_BIN = ${NADIR_BLD}/bin
+# crono
+CRONO_PKG = ${FILA_PKG}/../../../crono/cpp/xos
+CRONO_SRC = ${CRONO_PKG}/src
+CRONO_BLD = ${CRONO_PKG}/${BLD}/${BUILD_TYPE}
+CRONO_LIB = ${CRONO_BLD}/lib
+CRONO_BIN = ${CRONO_BLD}/bin
 
 
 ########################################################################
@@ -60,27 +68,27 @@ ${build_fila_USRDEFINES} \
 
 fila_USRINCLUDES += \
 -I${FILA_SRC} \
--I${NADIR_SRC} \
+-I${CRONO_SRC} \
 -I${PATRONA_SRC} \
+-I${NADIR_SRC} \
 -I${ROSTRA_SRC} \
 ${build_fila_USRINCLUDES} \
 
 fila_USRCXXFLAGS += \
--std=c++0x \
 ${build_fila_USRCXXFLAGS} \
 
 fila_USRLIBDIRS += \
 -L${FILA_LIB} \
--L${NADIR_LIB} \
+-L${CRONO_LIB} \
 -L${PATRONA_LIB} \
+-L${NADIR_LIB} \
 -L${ROSTRA_LIB} \
 ${build_fila_USRLIBDIRS} \
 
 fila_LIBS += \
 -lfila \
+-lcrono \
 -lnadir \
--lpatrona \
--lrostra \
 ${build_fila_LIBS} \
 
 ########################################################################

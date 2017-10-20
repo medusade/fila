@@ -16,9 +16,9 @@
 #   File: Makefile
 #
 # Author: $author$
-#   Date: 9/1/2017
+#   Date: 10/10/2017
 #
-# generic Gcc Makefile for fila Executable fila_exe
+# generic Gcc Makefile for fila Executable fila
 ########################################################################
 
 
@@ -38,19 +38,20 @@ ${fila_USRCXXFLAGS} \
 #
 # user defines
 #
-fila_exe_USRDEFINES = \
+fila_exe_USRDEFINES += \
 ${fila_USRDEFINES} \
+-DXOS_APP_CONSOLE_FILA_THE_MAIN \
 
 #
 # user includes
 #
-fila_exe_USRINCLUDES = \
+fila_exe_USRINCLUDES += \
 ${fila_USRINCLUDES} \
 
 #
 # user libdirs
 #
-fila_exe_USRLIBDIRS = \
+fila_exe_USRLIBDIRS += \
 ${fila_USRLIBDIRS} \
 
 ########################################################################
@@ -77,24 +78,10 @@ ${fila_USRLIBDIRS} \
 # Executable .cpp sources
 #
 fila_exe_EXE_CPP_SOURCES += \
-${FILA_SRC}/xos/mt/posix/Semaphore.cpp \
-${FILA_SRC}/xos/mt/os/Semaphore.cpp \
-${FILA_SRC}/xos/mt/posix/Mutex.cpp \
-${FILA_SRC}/xos/mt/os/Mutex.cpp \
-${FILA_SRC}/xos/mt/os/Os.cpp \
-${FILA_SRC}/xos/console/mt/Locked.cpp \
-${FILA_SRC}/xos/app/console/mt/hello/Main.cpp \
-${FILA_SRC}/xos/app/console/mt/hello/MainOpt.cpp \
-${FILA_SRC}/xos/console/mt/getopt/Main.cpp \
-${FILA_SRC}/xos/console/mt/getopt/MainOpt.cpp \
-${FILA_SRC}/fila/app/console/mt/hello/Main.cpp \
-${FILA_SRC}/fila/app/console/mt/hello/MainOpt.cpp \
-${FILA_SRC}/fila/console/mt/getopt/Main.cpp \
-${FILA_SRC}/fila/console/mt/getopt/MainOpt.cpp \
-${FILA_SRC}/fila/console/mt/Main.cpp \
+${FILA_SRC}/xos/app/console/fila/Main.cpp \
+${FILA_SRC}/xos/app/console/fila/MainOpt.cpp \
 ${FILA_SRC}/xos/console/mt/Main_main.cpp \
 
-_fila_exe_EXE_CPP_SOURCES += \
 
 #
 # Executable .m sources
@@ -116,6 +103,3 @@ _fila_exe_EXE_CPP_SOURCES += \
 #
 fila_exe_LIBS += \
 ${fila_LIBS}
-
-
-
