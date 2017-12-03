@@ -22,6 +22,7 @@
 #define _XOS_MT_SEMAPHORE_HPP
 
 #include "xos/base/Acquired.hpp"
+#include "xos/base/Waited.hpp"
 #include "xos/base/Created.hpp"
 #include "xos/base/Logged.hpp"
 
@@ -30,6 +31,7 @@ namespace mt {
 
 typedef Logged SemaphoreTLoggedImplements;
 typedef Acquired SemaphoreTAcquiredImplements;
+typedef Waited SemaphoreTWaitedImplements;
 typedef Create SemaphoreTCreateImplements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: SemaphoreT
@@ -37,14 +39,45 @@ typedef Create SemaphoreTCreateImplements;
 template
 <class TLoggedImplements = SemaphoreTLoggedImplements,
  class TAcquiredImplements = SemaphoreTAcquiredImplements,
+ class TWaitedImplements = SemaphoreTWaitedImplements,
  class TCreateImplements = SemaphoreTCreateImplements>
 class _EXPORT_CLASS SemaphoreT
 : virtual public TAcquiredImplements,
+  virtual public TWaitedImplements,
   virtual public TLoggedImplements,
   virtual public TCreateImplements {
 public:
     typedef TAcquiredImplements AcquiredImplements;
+    typedef TWaitedImplements WaitedImplements;
     typedef TLoggedImplements LoggedImplements;
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual bool Wait() { 
+        return this->Acquire(); 
+    }
+    virtual WaitStatus TryWait() { 
+        if ((AcquireSuccess == this->TryAcquire())) {
+            return WaitSuccess;
+        }
+        return WaitFailed; 
+    }
+    virtual WaitStatus TimedWait(mseconds_t milliseconds) { 
+        if ((AcquireSuccess == this->TimedAcquire(milliseconds))) {
+            return WaitSuccess;
+        }
+        return WaitFailed; 
+    }
+    virtual WaitStatus UntimedWait() { 
+        if ((AcquireSuccess == this->UntimedAcquire())) {
+            return WaitSuccess;
+        }
+        return WaitFailed; 
+    }
+    virtual bool Continue() { 
+        return this->Release(); 
+    }
+
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 };

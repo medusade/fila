@@ -66,6 +66,58 @@ public:
 };
 typedef ThreadT<> Thread;
 
+typedef void* ThreadExtendTAttachedT;
+typedef mt::Thread ThreadExtendTAttachImplements;
+typedef AttachT<ThreadExtendTAttachedT, int, 0, AttachException, ThreadExtendTAttachImplements> ThreadExtendTAttach;
+typedef AttachedT<ThreadExtendTAttachedT, int, 0, AttachException, ThreadExtendTAttach> ThreadExtendTAttached;
+typedef CreatedT<ThreadExtendTAttachedT, int, 0, CreateException, ThreadExtendTAttach, ThreadExtendTAttached> ThreadExtendTCreated;
+typedef ThreadExtendTAttach ThreadExtendTImplements;
+typedef ThreadExtendTCreated ThreadExtendTExtends;
+///////////////////////////////////////////////////////////////////////
+///  Class: ThreadExtendT
+///////////////////////////////////////////////////////////////////////
+template
+<class TImplements = ThreadExtendTImplements, class TExtends = ThreadExtendTExtends>
+
+class _EXPORT_CLASS ThreadExtendT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+
+    typedef typename Implements::Ran Ran;
+    typedef typename Extends::Attached Attached;
+    typedef typename Extends::Unattached_t Unattached_t;
+    static const Unattached_t Unattached = Extends::Unattached;
+    
+    ///////////////////////////////////////////////////////////////////////
+    /// Constructor: ThreadExtendT
+    ///////////////////////////////////////////////////////////////////////
+    ThreadExtendT(Attached attached, bool isCreated, Ran& ran): Extends(attached, isCreated), m_ran(ran) {
+    }
+    ThreadExtendT(Attached attached, Ran& ran): Extends(attached), m_ran(ran) {
+    }
+    ThreadExtendT(bool initiallySuspended, Ran& ran): m_ran(ran) {
+    }
+    ThreadExtendT(Ran& ran): m_ran(ran) {
+    }
+    ThreadExtendT(Attached attached, bool isCreated): Extends(attached, isCreated), m_ran(*this) {
+    }
+    ThreadExtendT(Attached attached): Extends(attached), m_ran(*this) {
+    }
+    ThreadExtendT(bool initiallySuspended): m_ran(*this) {
+    }
+    ThreadExtendT(): m_ran(*this) {
+    }
+    virtual ~ThreadExtendT() {
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    Ran& m_ran;
+};
+typedef ThreadExtendT<> ThreadExtend;
+
 } // namespace mt
 } // namespace xos 
 
