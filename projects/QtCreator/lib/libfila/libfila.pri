@@ -108,6 +108,9 @@ $${FILA_SRC}/fila/os/os/DLLibraryMain.hpp \
 $${FILA_SRC}/fila/os/os/Os.hpp \
 $${FILA_SRC}/fila/os/posix/DLLibrary.hpp \
 $${FILA_SRC}/fila/os/posix/DLLibraryMain.hpp \
+\
+$${FILA_SRC}/fila/lib/Version.hpp \
+$${FILA_SRC}/fila/lib/fila/Version.hpp \
 
 # libfila SOURCES
 #
@@ -133,5 +136,7 @@ $${FILA_SRC}/fila/mt/os/Sleep.hpp \
 $${FILA_SRC}/fila/mt/os/Thread.hpp \
 \
 $${FILA_SRC}/fila/os/DLLibrary.cpp \
+\
+$${FILA_SRC}/fila/lib/fila/Version.cpp \
 
 ########################################################################

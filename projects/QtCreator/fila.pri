@@ -16,7 +16,7 @@
 #   File: fila.pri
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 12/25/2018
 #
 # QtCreator .pri file for fila
 ########################################################################
@@ -38,7 +38,7 @@ ROSTRA_VERSION_RELEASE = 0
 ROSTRA_VERSION = $${ROSTRA_VERSION_MAJOR}.$${ROSTRA_VERSION_MINOR}.$${ROSTRA_VERSION_RELEASE}
 ROSTRA_NAME = rostra
 ROSTRA_GROUP = $${ROSTRA_NAME}
-ROSTRA_SOURCE = cpp/xos/src
+ROSTRA_SOURCE = src
 ROSTRA_DIR = $${ROSTRA_GROUP}/$${ROSTRA_NAME}-$${ROSTRA_VERSION}
 ROSTRA_PKG_DIR = $${ROSTRA_NAME}
 ROSTRA_HOME_BUILD = $${HOME}/build/$${ROSTRA_NAME}
@@ -194,8 +194,8 @@ crono_DEFINES += \
 
 ########################################################################
 # fila
-FRAMEWORK_NAME = fila
-FRAMEWORK_SOURCE = src
+FILA_NAME = fila
+FILA_SOURCE = src
 
 FILA_PKG = ../../../../..
 FILA_BLD = ../..
@@ -203,7 +203,7 @@ FILA_BLD = ../..
 FILA_PRJ = $${FILA_PKG}
 FILA_BIN = $${FILA_BLD}/bin
 FILA_LIB = $${FILA_BLD}/lib
-FILA_SRC = $${FILA_PKG}/$${FRAMEWORK_SOURCE}
+FILA_SRC = $${FILA_PKG}/$${FILA_SOURCE}
 
 # fila BUILD_CONFIG
 #
@@ -219,10 +219,10 @@ fila_DEFINES += RELEASE_BUILD
 #
 fila_INCLUDEPATH += \
 $${FILA_SRC} \
+$${rostra_INCLUDEPATH} \
 $${crono_INCLUDEPATH} \
 $${patrona_INCLUDEPATH} \
 $${nadir_INCLUDEPATH} \
-$${rostra_INCLUDEPATH} \
 $${build_fila_INCLUDEPATH} \
 
 # fila DEFINES
@@ -237,7 +237,5 @@ $${build_fila_DEFINES} \
 # fila LIBS
 #
 fila_LIBS += \
--L$${FILA_LIB}/lib$${FRAMEWORK_NAME} \
--l$${FRAMEWORK_NAME} \
-
-
+-L$${FILA_LIB}/lib$${FILA_NAME} \
+-l$${FILA_NAME} \

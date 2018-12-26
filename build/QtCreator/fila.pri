@@ -16,7 +16,7 @@
 #   File: fila.pri
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 12/25/2018
 #
 # build QtCreator .pri file for fila
 ########################################################################
@@ -34,6 +34,10 @@ build_rostra_INCLUDEPATH += \
 # build rostra DEFINES
 #
 build_rostra_DEFINES += \
+
+# build rostra FRAMEWORKS
+#
+build_rostra_FRAMEWORKS += \
 
 # build rostra LIBS
 #
@@ -53,6 +57,10 @@ build_nadir_INCLUDEPATH += \
 #
 build_nadir_DEFINES += \
 
+# build nadir FRAMEWORKS
+#
+build_nadir_FRAMEWORKS += \
+
 # build nadir LIBS
 #
 build_nadir_LIBS += \
@@ -71,6 +79,10 @@ build_patrona_INCLUDEPATH += \
 #
 build_patrona_DEFINES += \
 
+# build patrona FRAMEWORKS
+#
+build_patrona_FRAMEWORKS += \
+
 # build patrona LIBS
 #
 build_patrona_LIBS += \
@@ -88,6 +100,10 @@ build_crono_INCLUDEPATH += \
 # build crono DEFINES
 #
 build_crono_DEFINES += \
+
+# build crono FRAMEWORKS
+#
+build_crono_FRAMEWORKS += \
 
 # build crono LIBS
 #
@@ -114,6 +130,15 @@ $${build_patrona_DEFINES} \
 $${build_crono_DEFINES} \
 
 
+# build fila FRAMEWORKS
+#
+build_fila_FRAMEWORKS += \
+$${build_crono_FRAMEWORKS} \
+$${build_patrona_FRAMEWORKS} \
+$${build_nadir_FRAMEWORKS} \
+$${build_rostra_FRAMEWORKS} \
+
+
 # build fila LIBS
 #
 build_fila_LIBS += \
@@ -121,5 +146,3 @@ $${build_crono_LIBS} \
 $${build_patrona_LIBS} \
 $${build_nadir_LIBS} \
 $${build_rostra_LIBS} \
-
-

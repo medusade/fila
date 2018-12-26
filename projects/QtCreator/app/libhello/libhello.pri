@@ -13,64 +13,67 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: fila.pri
+#   File: libhello.pri
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 12/26/2018
 #
-# QtCreator .pri file for fila executable fila
+# QtCreator .pri file for fila executable libhello
 ########################################################################
 
 ########################################################################
-# fila
+# libhello
 
-# fila_exe TARGET
+# libhello TARGET
 #
-fila_exe_TARGET = fila
+libhello_TARGET = libhello
+libhello_TEMPLATE = lib
 
-# fila_exe INCLUDEPATH
+# libhello INCLUDEPATH
 #
-fila_exe_INCLUDEPATH += \
+libhello_INCLUDEPATH += \
 $${fila_INCLUDEPATH} \
 
-# fila_exe DEFINES
+# libhello DEFINES
 #
-fila_exe_DEFINES += \
+libhello_DEFINES += \
 $${fila_DEFINES} \
 
 ########################################################################
-# fila_exe OBJECTIVE_HEADERS
+# libhello OBJECTIVE_HEADERS
 #
-#fila_exe_OBJECTIVE_HEADERS += \
+#libhello_OBJECTIVE_HEADERS += \
 #$${FILA_SRC}/fila/base/Base.hh \
 
-# fila_exe OBJECTIVE_SOURCES
+# libhello OBJECTIVE_SOURCES
 #
-#fila_exe_OBJECTIVE_SOURCES += \
+#libhello_OBJECTIVE_SOURCES += \
 #$${FILA_SRC}/fila/base/Base.mm \
 
 ########################################################################
-# fila_exe HEADERS
+# libhello HEADERS
 #
-fila_exe_HEADERS += \
-$${FILA_SRC}/fila/console/Main_main.hpp \
-$${FILA_SRC}/fila/app/console/fila/Main.hpp \
+libhello_HEADERS += \
+$${FILA_SRC}/fila/os/posix/DLLibraryMain.hpp \
+$${FILA_SRC}/fila/os/apple/osx/DLLibraryMain.hpp \
+$${FILA_SRC}/fila/os/DLLibraryMain.hpp \
+$${FILA_SRC}/fila/app/console/libhello/DLLibraryExporter.hpp \
+$${FILA_SRC}/fila/app/console/libhello/DLLibraryMain.hpp \
 
-# fila_exe SOURCES
+# libhello SOURCES
 #
-fila_exe_SOURCES += \
-$${FILA_SRC}/fila/console/Main_main.cpp \
-$${FILA_SRC}/fila/app/console/fila/Main.cpp \
+libhello_SOURCES += \
+$${FILA_SRC}/fila/app/console/libhello/DLLibraryExporter.cpp \
+$${FILA_SRC}/fila/app/console/libhello/DLLibraryMain.cpp \
 
 ########################################################################
-# fila_exe FRAMEWORKS
+# libhello FRAMEWORKS
 #
-fila_exe_FRAMEWORKS += \
+libhello_FRAMEWORKS += \
 $${fila_FRAMEWORKS} \
 
-# fila_exe LIBS
+# libhello LIBS
 #
-fila_exe_LIBS += \
+libhello_LIBS += \
 $${fila_LIBS} \
-
 

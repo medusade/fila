@@ -13,64 +13,64 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: fila.pri
+#   File: libhello.pro
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 12/26/2018
 #
-# QtCreator .pri file for fila executable fila
+# QtCreator .pro file for fila executable libhello
 ########################################################################
+include(../../../../../build/QtCreator/fila.pri)
+include(../../../../QtCreator/fila.pri)
+include(../../fila.pri)
+include(../../../../QtCreator/app/libhello/libhello.pri)
 
-########################################################################
-# fila
-
-# fila_exe TARGET
-#
-fila_exe_TARGET = fila
-
-# fila_exe INCLUDEPATH
-#
-fila_exe_INCLUDEPATH += \
-$${fila_INCLUDEPATH} \
-
-# fila_exe DEFINES
-#
-fila_exe_DEFINES += \
-$${fila_DEFINES} \
+TARGET = $${libhello_TARGET}
+TEMPLATE = $${libhello_TEMPLATE}
 
 ########################################################################
-# fila_exe OBJECTIVE_HEADERS
+# INCLUDEPATH
 #
-#fila_exe_OBJECTIVE_HEADERS += \
-#$${FILA_SRC}/fila/base/Base.hh \
+INCLUDEPATH += \
+$${libhello_INCLUDEPATH} \
 
-# fila_exe OBJECTIVE_SOURCES
-#
-#fila_exe_OBJECTIVE_SOURCES += \
-#$${FILA_SRC}/fila/base/Base.mm \
-
-########################################################################
-# fila_exe HEADERS
-#
-fila_exe_HEADERS += \
-$${FILA_SRC}/fila/console/Main_main.hpp \
-$${FILA_SRC}/fila/app/console/fila/Main.hpp \
-
-# fila_exe SOURCES
-#
-fila_exe_SOURCES += \
-$${FILA_SRC}/fila/console/Main_main.cpp \
-$${FILA_SRC}/fila/app/console/fila/Main.cpp \
+# DEFINES
+# 
+DEFINES += \
+$${libhello_DEFINES} \
 
 ########################################################################
-# fila_exe FRAMEWORKS
+# OBJECTIVE_HEADERS
 #
-fila_exe_FRAMEWORKS += \
-$${fila_FRAMEWORKS} \
+OBJECTIVE_HEADERS += \
+$${libhello_OBJECTIVE_HEADERS} \
 
-# fila_exe LIBS
+# OBJECTIVE_SOURCES
 #
-fila_exe_LIBS += \
-$${fila_LIBS} \
+OBJECTIVE_SOURCES += \
+$${libhello_OBJECTIVE_SOURCES} \
 
+########################################################################
+# HEADERS
+#
+HEADERS += \
+$${libhello_HEADERS} \
+$${OBJECTIVE_HEADERS} \
+
+# SOURCES
+#
+SOURCES += \
+$${libhello_SOURCES} \
+
+########################################################################
+# FRAMEWORKS
+#
+FRAMEWORKS += \
+$${libhello_FRAMEWORKS} \
+
+# LIBS
+#
+LIBS += \
+$${libhello_LIBS} \
+$${FRAMEWORKS} \
 

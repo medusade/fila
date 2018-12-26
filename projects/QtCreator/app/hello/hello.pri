@@ -13,64 +13,67 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: fila.pri
+#   File: hello.pri
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 12/25/2018
 #
-# QtCreator .pri file for fila executable fila
+# QtCreator .pri file for fila executable hello
 ########################################################################
 
 ########################################################################
-# fila
+# hello
 
-# fila_exe TARGET
+# hello TARGET
 #
-fila_exe_TARGET = fila
+hello_TARGET = hello
 
-# fila_exe INCLUDEPATH
+# hello INCLUDEPATH
 #
-fila_exe_INCLUDEPATH += \
+hello_INCLUDEPATH += \
 $${fila_INCLUDEPATH} \
 
-# fila_exe DEFINES
+# hello DEFINES
 #
-fila_exe_DEFINES += \
+hello_DEFINES += \
 $${fila_DEFINES} \
 
 ########################################################################
-# fila_exe OBJECTIVE_HEADERS
+# hello OBJECTIVE_HEADERS
 #
-#fila_exe_OBJECTIVE_HEADERS += \
+#hello_OBJECTIVE_HEADERS += \
 #$${FILA_SRC}/fila/base/Base.hh \
 
-# fila_exe OBJECTIVE_SOURCES
+# hello OBJECTIVE_SOURCES
 #
-#fila_exe_OBJECTIVE_SOURCES += \
+#hello_OBJECTIVE_SOURCES += \
 #$${FILA_SRC}/fila/base/Base.mm \
 
 ########################################################################
-# fila_exe HEADERS
+# hello HEADERS
 #
-fila_exe_HEADERS += \
-$${FILA_SRC}/fila/console/Main_main.hpp \
-$${FILA_SRC}/fila/app/console/fila/Main.hpp \
+hello_HEADERS += \
+$${NADIR_SRC}/thirdparty/gnu/glibc/posix/execvpe.h \
+$${FILA_SRC}/fila/mt/os/Process.hpp \
+$${FILA_SRC}/fila/app/console/hello/Main.hpp \
 
-# fila_exe SOURCES
+# hello SOURCES
 #
-fila_exe_SOURCES += \
-$${FILA_SRC}/fila/console/Main_main.cpp \
-$${FILA_SRC}/fila/app/console/fila/Main.cpp \
+hello_SOURCES += \
+$${NADIR_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
+$${CRONO_SRC}/crono/console/Main_main.cpp \
+$${FILA_SRC}/fila/mt/os/Process.cpp \
+$${FILA_SRC}/fila/app/console/hello/Main.cpp \
 
 ########################################################################
-# fila_exe FRAMEWORKS
+# hello FRAMEWORKS
 #
-fila_exe_FRAMEWORKS += \
+hello_FRAMEWORKS += \
 $${fila_FRAMEWORKS} \
 
-# fila_exe LIBS
+# hello LIBS
 #
-fila_exe_LIBS += \
+hello_LIBS += \
 $${fila_LIBS} \
 
 

@@ -16,7 +16,7 @@
 #   File: fila.pri
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 12/25/2018
 #
 # Os QtCreator .pri file for fila
 ########################################################################
@@ -146,4 +146,3 @@ fila_LIBS += \
 -lrt
 } else {
 }
-
