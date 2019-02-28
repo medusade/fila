@@ -156,7 +156,7 @@ protected:
                         (*main)(argc, argv, env);
                         
                         CRONO_LOG_DEBUG("release(main)...");
-                        if ((err2 = release(main))) {
+                        if (!(err2 = release(main))) {
                             CRONO_LOG_DEBUG("...release(main)");
                         } else {
                             CRONO_LOG_DEBUG("...failed " << err << " on release(main)");
@@ -232,8 +232,8 @@ protected:
             mt::os::Semaphore sem;
             mt::os::Mutex mutex;
             Thread thread(*this,sem,start,threadSeconds);
-            Locker lock(mutex);
             Acquirer acquire(sem);
+            Locker lock(mutex);
 
             finish = ::time(NULL);
             OutL("...Finished in ", UnsignedToString(finish-start).Chars(), " seconds\n", NULL);

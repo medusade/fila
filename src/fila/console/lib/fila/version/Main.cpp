@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////
-/// Copyright (c) 1988-2018 $organization$
+/// Copyright (c) 1988-2019 $organization$
 ///
 /// This software is provided by the author and contributors ``as is'' 
 /// and any express or implied warranties, including, but not limited to, 
@@ -16,19 +16,23 @@
 ///   File: Main.cpp
 ///
 /// Author: $author$
-///   Date: 12/25/2018
+///   Date: 2/25/2019
 ///////////////////////////////////////////////////////////////////////
-#include "fila/app/console/hello/Main.hpp"
-#include "fila/console/Main_main.cpp"
+#include "fila/console/lib/fila/version/Main.hpp"
 
 namespace fila {
-namespace app {
 namespace console {
-namespace hello {
+namespace lib {
+namespace fila {
+namespace version {
 
-static Main theMain;
+///////////////////////////////////////////////////////////////////////
+///  Class: MainT
+///////////////////////////////////////////////////////////////////////
 
-} // namespace hello 
-} // namespace console 
-} // namespace app 
-} // namespace fila 
+} /// namespace version
+} /// namespace fila
+} /// namespace lib
+} /// namespace console
+} /// namespace fila
+

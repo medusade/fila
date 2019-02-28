@@ -222,7 +222,7 @@ public:
 };
 typedef bool_to_stringt<char,String> BoolToString;
 typedef bool_to_stringt<tchar_t,TString> BoolToTString;
-typedef bool_to_stringt<wchar_t,WString> BoolToSWtring;
+typedef bool_to_stringt<wchar_t,WString> BoolToWString;
 
 ///////////////////////////////////////////////////////////////////////
 ///  Class: int_to_stringt
@@ -242,7 +242,7 @@ public:
 };
 typedef int_to_stringt<char,String> IntToString;
 typedef int_to_stringt<tchar_t,TString> IntToTString;
-typedef int_to_stringt<wchar_t,WString> IntToSWtring;
+typedef int_to_stringt<wchar_t,WString> IntToWString;
 
 ///////////////////////////////////////////////////////////////////////
 ///  Class: signed_to_stringt
@@ -262,7 +262,7 @@ public:
 };
 typedef signed_to_stringt<char,String> SignedToString;
 typedef signed_to_stringt<tchar_t,TString> SignedToTString;
-typedef signed_to_stringt<wchar_t,WString> SignedToSWtring;
+typedef signed_to_stringt<wchar_t,WString> SignedToWString;
 
 ///////////////////////////////////////////////////////////////////////
 ///  Class: unsigned_to_stringt
@@ -282,7 +282,7 @@ public:
 };
 typedef unsigned_to_stringt<char,String> UnsignedToString;
 typedef unsigned_to_stringt<tchar_t,TString> UnsignedToTString;
-typedef unsigned_to_stringt<wchar_t,WString> UnsignedToSWtring;
+typedef unsigned_to_stringt<wchar_t,WString> UnsignedToWString;
 
 ///////////////////////////////////////////////////////////////////////
 ///  Class: pointer_to_stringt
@@ -302,7 +302,7 @@ public:
 };
 typedef pointer_to_stringt<char,String> PointerToString;
 typedef pointer_to_stringt<tchar_t,TString> PointerToTString;
-typedef pointer_to_stringt<wchar_t,WString> PointerToSWtring;
+typedef pointer_to_stringt<wchar_t,WString> PointerToWString;
 
 } // namespace fila
 

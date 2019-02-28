@@ -21,7 +21,7 @@
 #include "fila/lib/fila/Version.hpp"
 
 #if !defined(FILA_LIB_FILA_VERSION_NAME)
-#define FILA_LIB_FILA_VERSION_NAME "fila"
+#define FILA_LIB_FILA_VERSION_NAME "libfila"
 #endif /// !defined(FILA_LIB_FILA_VERSION_NAME)
 
 #if !defined(FILA_LIB_FILA_VERSION_MAJOR)
