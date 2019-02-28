@@ -54,12 +54,15 @@ $${fila_DEFINES} \
 #
 fila_exe_HEADERS += \
 $${FILA_SRC}/fila/console/Main_main.hpp \
+$${FILA_SRC}/fila/console/lib/fila/version/Main.hpp \
+$${FILA_SRC}/fila/app/console/fila/MainOpt.hpp \
 $${FILA_SRC}/fila/app/console/fila/Main.hpp \
 
 # fila_exe SOURCES
 #
 fila_exe_SOURCES += \
 $${FILA_SRC}/fila/console/Main_main.cpp \
+$${FILA_SRC}/fila/app/console/fila/MainOpt.cpp \
 $${FILA_SRC}/fila/app/console/fila/Main.cpp \
 
 ########################################################################

@@ -4,10 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Property Sheets", "Property Sheets", "{F4D80911-F614-4335-959A-C42BB801BE7C}"
 	ProjectSection(SolutionItems) = preProject
 		..\crono.vsprops = ..\crono.vsprops
-		fila-vcversion.vsprops = fila-vcversion.vsprops
 		..\fila.vsprops = ..\fila.vsprops
 		..\nadir.vsprops = ..\nadir.vsprops
 		..\patrona.vsprops = ..\patrona.vsprops
+		..\rostra.vsprops = ..\rostra.vsprops
+		..\vcproj.vsprops = ..\vcproj.vsprops
+		vcversion.vsprops = vcversion.vsprops
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{F44FB28E-5693-4B00-AF64-F707E8A7EF63}"
@@ -15,10 +17,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{967C0CB7-350A-44CB-9620-69A6BD8E818F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hello", "hello\hello.vcproj", "{E9327147-7EC1-44C7-B02B-36CE63122BDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3} = {B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfila", "libfila\libfila.vcproj", "{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhello", "libhello\libhello.vcproj", "{D4AB3729-787E-4190-B4F3-ED6EC00F8665}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3} = {B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

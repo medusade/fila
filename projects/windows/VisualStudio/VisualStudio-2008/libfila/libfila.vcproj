@@ -24,7 +24,7 @@
 			OutputDirectory="$(FILA_LIB)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+                        InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -46,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;$(FILA_DEFINES)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;$(FILA_DEBUG_DEFINES)"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -83,13 +83,12 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
+			Name="Debug|x64"
 			OutputDirectory="$(FILA_LIB)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+                        InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
-			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -105,15 +104,16 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
+				TargetEnvironment="3"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
+				Optimization="0"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;$(FILA_DEFINES)"
-				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;$(FILA_DEBUG_DEFINES)"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -147,12 +147,13 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|x64"
+			Name="Release|Win32"
 			OutputDirectory="$(FILA_LIB)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+                        InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -168,16 +169,15 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TargetEnvironment="3"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;$(FILA_DEFINES)"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;$(FILA_RELEASE_DEFINES)"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -215,7 +215,7 @@
 			OutputDirectory="$(FILA_LIB)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+                        InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -240,7 +240,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;$(FILA_DEFINES)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;$(FILA_RELEASE_DEFINES)"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -288,6 +288,10 @@
 				RelativePath="..\..\..\..\..\src\fila\base\Base.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\fila\lib\fila\Version.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -296,6 +300,10 @@
 			>
 			<File
 				RelativePath="..\..\..\..\..\src\fila\base\Base.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\src\fila\lib\fila\Version.hpp"
 				>
 			</File>
 		</Filter>

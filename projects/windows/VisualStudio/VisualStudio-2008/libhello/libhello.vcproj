@@ -24,7 +24,7 @@
 			OutputDirectory="$(FILA_BIN)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="2"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+			InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -46,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_DEFINES)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_DEBUG_DEFINES)"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -95,11 +95,87 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(FILA_BIN)"
+			IntermediateDirectory="$(FILA_OBJ)"
+			ConfigurationType="2"
+			InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_DEBUG_DEFINES)"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="$(FILA_LIBS)"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="$(FILA_LIB_DIRS)"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(FILA_BIN)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="2"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+			InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -123,7 +199,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_DEFINES)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_RELEASE_DEFINES)"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -173,87 +249,11 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|x64"
-			OutputDirectory="$(FILA_BIN)"
-			IntermediateDirectory="$(FILA_OBJ)"
-			ConfigurationType="2"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_DEFINES)"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="$(FILA_LIBS)"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(FILA_LIB_DIRS)"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				TargetMachine="17"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(FILA_BIN)"
 			IntermediateDirectory="$(FILA_OBJ)"
 			ConfigurationType="2"
-			InheritedPropertySheets="..\fila-vcversion.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
+			InheritedPropertySheets="..\vcversion.vsprops;..\..\vcproj.vsprops;..\..\rostra.vsprops;..\..\nadir.vsprops;..\..\patrona.vsprops;..\..\crono.vsprops;..\..\fila.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -278,7 +278,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(FILA_INCLUDE_DIRS)"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_DEFINES)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBHELLO_EXPORTS;$(FILA_RELEASE_DEFINES)"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -337,6 +337,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\..\..\..\src\fila\app\console\libhello\DLLibraryExporter.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\..\..\src\fila\app\console\libhello\DLLibraryMain.cpp"
 				>
 			</File>
@@ -346,6 +350,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\..\..\..\src\fila\app\console\libhello\DLLibraryExporter.hpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\..\..\src\fila\app\console\libhello\DLLibraryMain.hpp"
 				>

@@ -61,7 +61,6 @@ $${FILA_SRC}/fila/app/console/hello/Main.hpp \
 #
 hello_SOURCES += \
 $${NADIR_SRC}/thirdparty/gnu/glibc/posix/execvpe.c \
-$${CRONO_SRC}/crono/console/Main_main.cpp \
 $${FILA_SRC}/fila/mt/os/Process.cpp \
 $${FILA_SRC}/fila/app/console/hello/Main.cpp \
 
