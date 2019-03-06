@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{1F92520F-75B5-4874-8F86-F85A6E86A11A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{492419B5-8C91-4386-A6BC-9B8048D2763F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "properties", "properties", "{72471177-8EA7-4DC2-A150-A5117F02358B}"
+	ProjectSection(SolutionItems) = preProject
+		..\crono.props = ..\crono.props
+		..\fila.props = ..\fila.props
+		..\nadir.props = ..\nadir.props
+		..\patrona.props = ..\patrona.props
+		..\rostra.props = ..\rostra.props
+		..\vcproj.props = ..\vcproj.props
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libfila", "libfila\libfila.vcxproj", "{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fila", "fila\fila.vcxproj", "{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Debug|Win32.Build.0 = Debug|Win32
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Debug|x64.ActiveCfg = Debug|x64
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Debug|x64.Build.0 = Debug|x64
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Release|Win32.ActiveCfg = Release|Win32
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Release|Win32.Build.0 = Release|Win32
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Release|x64.ActiveCfg = Release|x64
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3}.Release|x64.Build.0 = Release|x64
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Debug|Win32.ActiveCfg = Debug|Win32
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Debug|Win32.Build.0 = Debug|Win32
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Debug|x64.ActiveCfg = Debug|x64
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Debug|x64.Build.0 = Debug|x64
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Release|Win32.ActiveCfg = Release|Win32
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Release|Win32.Build.0 = Release|Win32
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Release|x64.ActiveCfg = Release|x64
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05C474A5-673F-4AF9-BC58-0CCD2D2DF936} = {1F92520F-75B5-4874-8F86-F85A6E86A11A}
+		{B24E40D6-C3C2-4089-ABE6-EA8903F6EEE3} = {492419B5-8C91-4386-A6BC-9B8048D2763F}
+	EndGlobalSection
+EndGlobal
