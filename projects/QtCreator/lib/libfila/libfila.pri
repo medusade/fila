@@ -39,6 +39,7 @@ $${fila_INCLUDEPATH} \
 #
 libfila_DEFINES += \
 $${fila_DEFINES} \
+XOS_DEFAULT_LOG_ERROR \
 
 ########################################################################
 # libfila OBJECTIVE_HEADERS

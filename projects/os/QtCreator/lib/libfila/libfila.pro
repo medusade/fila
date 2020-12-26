@@ -16,10 +16,11 @@
 #   File: libfila.pro
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 3/24/2018, 12/26/2020
 #
 # QtCreator .pro file for fila library libfila
 ########################################################################
+include(../../../../../../build/QtCreator/fila.pri)
 include(../../../../../build/QtCreator/fila.pri)
 include(../../../../QtCreator/fila.pri)
 include(../../fila.pri)
@@ -56,12 +57,12 @@ $${libfila_OBJECTIVE_SOURCES} \
 #
 HEADERS += \
 $${libfila_HEADERS} \
+$${libfila_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
 $${libfila_SOURCES} \
-$${OBJECTIVE_SOURCES} \
 
 ########################################################################
 

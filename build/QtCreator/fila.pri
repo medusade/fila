@@ -18,8 +18,32 @@
 # Author: $author$
 #   Date: 12/25/2018
 #
-# build QtCreator .pri file for fila
+# Build specific QtCreator .pri file for fila
 ########################################################################
+contains(BUILD_OS,Uname) {
+UNAME = $$system(uname)
+
+contains(UNAME,Darwin) {
+BUILD_OS = macosx
+} else {
+contains(UNAME,Linux) {
+BUILD_OS = linux
+} else {
+contains(UNAME,Windows) {
+BUILD_OS = windows
+} else {
+BUILD_OS = os
+} # contains(UNAME,Windows)
+} # contains(UNAME,Linux)
+} # contains(UNAME,Darwin)
+} else {
+contains(BUILD_OS,FILA_OS) {
+} else {
+BUILD_OS = os
+} # contains(BUILD_OS,FILA_OS)
+} # contains(BUILD_OS,Uname)
+
+#BUILD_CPP_VERSION = 11
 
 ########################################################################
 # rostra

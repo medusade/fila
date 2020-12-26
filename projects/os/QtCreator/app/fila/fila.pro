@@ -16,10 +16,11 @@
 #   File: fila.pro
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 3/24/2018, 12/26/2020
 #
 # QtCreator .pro file for fila executable fila
 ########################################################################
+include(../../../../../../build/QtCreator/fila.pri)
 include(../../../../../build/QtCreator/fila.pri)
 include(../../../../QtCreator/fila.pri)
 include(../../fila.pri)
@@ -54,12 +55,12 @@ $${fila_exe_OBJECTIVE_SOURCES} \
 #
 HEADERS += \
 $${fila_exe_HEADERS} \
+$${fila_exe_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
 $${fila_exe_SOURCES} \
-$${OBJECTIVE_SOURCES} \
 
 ########################################################################
 # FRAMEWORKS

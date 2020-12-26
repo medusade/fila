@@ -16,7 +16,7 @@
 #   File: fila.pri
 #
 # Author: $author$
-#   Date: 3/24/2018
+#   Date: 3/24/2018, 12/26/2020
 #
 # QtCreator .pri file for fila executable fila
 ########################################################################
@@ -37,6 +37,7 @@ $${fila_INCLUDEPATH} \
 #
 fila_exe_DEFINES += \
 $${fila_DEFINES} \
+XOS_DEFAULT_LOG_ERROR \
 
 ########################################################################
 # fila_exe OBJECTIVE_HEADERS
